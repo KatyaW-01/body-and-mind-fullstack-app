@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
-from marshmallow import Schema, fields, validate
+from marshmallow import Schema, fields, validates, ValidationError,validate
+from marshmallow.validate import Range, OneOf, Length
 from datetime import date
 
 db = SQLAlchemy()
@@ -34,15 +35,20 @@ class MoodLog(db.Model):
   id = db.Column(db.Integer, primary_key = True)
   date = db.Column(db.Date, nullable=False, default = date.today)
   rating = db.Column(db.Integer, nullable=False)
-  mood = db.Column(db.String)
+  mood = db.Column(db.String, nullable=False)
   notes = db.Column(db.String)
 
 class MoodLogSchema(Schema):
   id = fields.Int(dump_only=True)
-  date = fields.Date()
-  rating = fields.Integer()
-  mood = fields.String()
-  notes = fields.String()
+  date = fields.Date(required=False)
+  rating = fields.Integer(required=True, validate=validate.Range(min=1,max=10))
+  mood = fields.String(validate=OneOf(["happy","sad","angry","anxious","calm"]))
+  notes = fields.String(validate = validate.Length(min=0, max=300))
+
+  @validates("date")
+  def validates_date(self,value):
+    if value > date.today():
+      raise ValidationError("Date cannot be in the future.")
 
 
 #the data in this model will come from an API
