@@ -29,6 +29,15 @@ class WorkoutExercise(db.Model):
   workout_id = db.Column(db.Integer, db.ForeignKey('workouts.id'))
   workout = db.relationship('Workout', back_populates='workout_exercises')
 
+  class WorkoutExerciseSchema(Schema):
+    id = fields.Int(dump_only=True)
+    name = fields.String()
+    sets = fields.Integer()
+    reps = fields.Integer()
+    weight = fields.Float()
+
+    workout = fields.Nested(lambda: WorkoutSchema(exclude=("workout_exercises",)))
+
 class MoodLog(db.Model):
   __tablename__ = 'mood_logs'
 
@@ -43,7 +52,7 @@ class MoodLogSchema(Schema):
   date = fields.Date(required=False)
   rating = fields.Integer(required=True, validate=validate.Range(min=1,max=10))
   mood = fields.String(validate=OneOf(["happy","sad","angry","anxious","calm"]))
-  notes = fields.String(validate = validate.Length(min=0, max=300))
+  notes = fields.String(validate = validate.Length(min=0, max=300, error="Notes cannot exceed 300 characters"))
 
   @validates("date")
   def validates_date(self,value):
