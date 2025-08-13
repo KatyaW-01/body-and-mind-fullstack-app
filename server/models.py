@@ -17,6 +17,16 @@ class Workout(db.Model):
 
   workout_exercises = db.relationship('WorkoutExercises', back_populates='workout')
 
+class WorkoutSchema(Schema):
+  id = fields.Int(dump_only=True)
+  date = fields.Date()
+  type = fields.String()
+  duration = fields.Integer()
+  intensity = fields.Integer()
+  notes = fields.String()
+
+  workout_exercises = fields.Nested(lambda: WorkoutExerciseSchema(exclude=("workout",)),many=True)
+
 class WorkoutExercise(db.Model):
   __tablename__ = 'workout_exercises'
 
@@ -29,14 +39,14 @@ class WorkoutExercise(db.Model):
   workout_id = db.Column(db.Integer, db.ForeignKey('workouts.id'))
   workout = db.relationship('Workout', back_populates='workout_exercises')
 
-  class WorkoutExerciseSchema(Schema):
-    id = fields.Int(dump_only=True)
-    name = fields.String()
-    sets = fields.Integer()
-    reps = fields.Integer()
-    weight = fields.Float()
+class WorkoutExerciseSchema(Schema):
+  id = fields.Int(dump_only=True)
+  name = fields.String()
+  sets = fields.Integer()
+  reps = fields.Integer()
+  weight = fields.Float()
 
-    workout = fields.Nested(lambda: WorkoutSchema(exclude=("workout_exercises",)))
+  workout = fields.Nested(lambda: WorkoutSchema(exclude=("workout_exercises",)))
 
 class MoodLog(db.Model):
   __tablename__ = 'mood_logs'
