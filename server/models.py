@@ -1,0 +1,15 @@
+from flask_sqlalchemy import SQLAlchemy
+from marshmallow import Schema, fields, validate
+from datetime import date
+
+db = SQLAlchemy()
+
+class Workout(db.Model):
+  __tablename__ = 'workouts'
+
+  id = db.Column(db.Integer, primary_key = True)
+  date = db.Column(db.Date, nullable=False, default = date.today)
+  type = db.Column(db.String)
+  duration = db.Column(db.Integer)
+  intensity = db.Column(db.Integer)
+  notes = db.Column(db.String)
