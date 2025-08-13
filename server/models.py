@@ -27,3 +27,13 @@ class WorkoutExercise(db.Model):
 
   workout_id = db.Column(db.Integer, db.ForeignKey('workouts.id'))
   workout = db.relationship('Workout', back_populates='workout_exercises')
+
+class MoodLog(db.Model):
+  __tablename__ = 'mood_log'
+
+  id = db.Column(db.Integer, primary_key = True)
+  date = db.Column(db.Date, nullable=False, default = date.today)
+  rating = db.Column(db.Integer)
+  mood = db.Column(db.String)
+  notes = db.Column(db.String)
+
