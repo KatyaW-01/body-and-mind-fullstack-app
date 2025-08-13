@@ -1,0 +1,95 @@
+# === Editor & OS Files ===
+.vscode/
+.idea/
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+.DS_Store
+Thumbs.db
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+
+# === Frontend (React + Vite) ===
+/client/node_modules/
+/client/dist/
+/client/.env
+/client/dist-ssr/
+/client/*.local
+
+# === Backend (Python Flask) ===
+/server/__pycache__/
+/server/*.py[cod]
+/server/*.so
+
+# Distribution / packaging
+/server/build/
+/server/develop-eggs/
+/server/dist/
+/server/downloads/
+/server/eggs/
+/server/.eggs/
+/server/lib/
+/server/lib64/
+/server/parts/
+/server/sdist/
+/server/var/
+/server/wheels/
+/server/*.egg-info/
+/server/.installed.cfg
+/server/*.egg
+/server/MANIFEST
+
+# PyInstaller
+/server/*.manifest
+/server/*.spec
+
+# Installer logs
+/server/pip-log.txt
+/server/pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+/server/htmlcov/
+/server/.tox/
+/server/.nox/
+/server/.coverage
+/server/.coverage.*
+/server/.cache/
+/server/nosetests.xml
+/server/coverage.xml
+/server/*.cover
+/server/.hypothesis/
+/server/.pytest_cache/
+
+# Flask stuff
+/server/instance/
+/server/.webassets-cache
+
+# Environments
+/server/.env
+/server/.venv/
+/server/env/
+/server/venv/
+/server/venv/
+/server/ENV/
+/server/env.bak/
+/server/venv.bak/
+
+# Jupyter Notebook
+/server/.ipynb_checkpoints/
+
+# Mypy
+/server/.mypy_cache/
+/server/.dmypy.json
+/server/dmypy.json
