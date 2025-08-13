@@ -31,7 +31,7 @@ class WorkoutExercise(db.Model):
   __tablename__ = 'workout_exercises'
 
   id = db.Column(db.Integer, primary_key = True)
-  name = db.Column(db.String)
+  name = db.Column(db.String, nullable=False)
   sets = db.Column(db.Integer)
   reps = db.Column(db.Integer)
   weight = db.Column(db.Float)
@@ -41,10 +41,10 @@ class WorkoutExercise(db.Model):
 
 class WorkoutExerciseSchema(Schema):
   id = fields.Int(dump_only=True)
-  name = fields.String()
-  sets = fields.Integer()
-  reps = fields.Integer()
-  weight = fields.Float()
+  name = fields.String(required=True, validate=validate.Length(min=1, max=100))
+  sets = fields.Integer(validate=validate.Range(min=0,max=50))
+  reps = fields.Integer(validate=validate.Range(min=0,max=200))
+  weight = fields.Float(validate=validate.Range(min=0))
 
   workout = fields.Nested(lambda: WorkoutSchema(exclude=("workout_exercises",)))
 
@@ -61,7 +61,7 @@ class MoodLogSchema(Schema):
   id = fields.Int(dump_only=True)
   date = fields.Date(required=False)
   rating = fields.Integer(required=True, validate=validate.Range(min=1,max=10))
-  mood = fields.String(validate=OneOf(["happy","sad","angry","anxious","calm"]))
+  mood = fields.String(validate=validate.OneOf(["happy","sad","angry","anxious","calm"]))
   notes = fields.String(validate = validate.Length(min=0, max=300, error="Notes cannot exceed 300 characters"))
 
   @validates("date")
