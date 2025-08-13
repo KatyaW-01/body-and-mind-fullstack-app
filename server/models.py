@@ -5,36 +5,55 @@ from datetime import date
 
 db = SQLAlchemy()
 
+allowed_workout_types = [
+  "Running",
+  "Cycling",
+  "Strength Training",
+  "HIIT",
+  "Swimming",
+  "Walking",
+  "Yoga",
+  "Hiking",
+  "Climbing",
+  "Other"
+]
+
 class Workout(db.Model):
   __tablename__ = 'workouts'
 
   id = db.Column(db.Integer, primary_key = True)
   date = db.Column(db.Date, nullable=False, default = date.today)
-  type = db.Column(db.String)
+  type = db.Column(db.String, nullable=False)
   duration = db.Column(db.Integer, nullable=False)
-  intensity = db.Column(db.Integer)
-  notes = db.Column(db.String)
+  intensity = db.Column(db.Integer, nullable=False)
+  notes = db.Column(db.String, nullable=True)
 
   workout_exercises = db.relationship('WorkoutExercises', back_populates='workout')
 
 class WorkoutSchema(Schema):
   id = fields.Int(dump_only=True)
-  date = fields.Date()
-  type = fields.String()
-  duration = fields.Integer()
-  intensity = fields.Integer()
-  notes = fields.String()
+  date = fields.Date(required=False)
+  type = fields.String(required=True, validate=validate.OneOf(allowed_workout_types))
+  #duration is in minutes
+  duration = fields.Integer(required=True, validate=validate.Range(min=1,max=500))
+  intensity = fields.Integer(require=True,validate=validate.Range(min=1,max=10, error="Intensity must be an integer between 1 and 10"))
+  notes = fields.String(required=False,validate = validate.Length(min=0, max=300, error="Notes cannot exceed 300 characters"))
 
   workout_exercises = fields.Nested(lambda: WorkoutExerciseSchema(exclude=("workout",)),many=True)
+
+  @validates("date")
+  def validates_date(self,value):
+    if value > date.today():
+      raise ValidationError("Date cannot be in the future.")
 
 class WorkoutExercise(db.Model):
   __tablename__ = 'workout_exercises'
 
   id = db.Column(db.Integer, primary_key = True)
   name = db.Column(db.String, nullable=False)
-  sets = db.Column(db.Integer)
-  reps = db.Column(db.Integer)
-  weight = db.Column(db.Float)
+  sets = db.Column(db.Integer, nullable=True)
+  reps = db.Column(db.Integer, nullable=True)
+  weight = db.Column(db.Float, nullable=True)
 
   workout_id = db.Column(db.Integer, db.ForeignKey('workouts.id'))
   workout = db.relationship('Workout', back_populates='workout_exercises')
@@ -60,7 +79,7 @@ class MoodLog(db.Model):
 class MoodLogSchema(Schema):
   id = fields.Int(dump_only=True)
   date = fields.Date(required=False)
-  rating = fields.Integer(required=True, validate=validate.Range(min=1,max=10))
+  rating = fields.Integer(required=True, validate=validate.Range(min=1, max=10, error="Mood rating must be an integer between 1 and 10"))
   mood = fields.String(validate=validate.OneOf(["happy","sad","angry","anxious","calm"]))
   notes = fields.String(validate = validate.Length(min=0, max=300, error="Notes cannot exceed 300 characters"))
 
