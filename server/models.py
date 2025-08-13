@@ -28,7 +28,7 @@ class Workout(db.Model):
   intensity = db.Column(db.Integer, nullable=False)
   notes = db.Column(db.String, nullable=True)
 
-  workout_exercises = db.relationship('WorkoutExercises', back_populates='workout')
+  exercises = db.relationship('WorkoutExercise', back_populates='workout')
 
 class WorkoutSchema(Schema):
   id = fields.Int(dump_only=True)
@@ -36,10 +36,10 @@ class WorkoutSchema(Schema):
   type = fields.String(required=True, validate=validate.OneOf(allowed_workout_types))
   #duration is in minutes
   duration = fields.Integer(required=True, validate=validate.Range(min=1,max=500))
-  intensity = fields.Integer(require=True,validate=validate.Range(min=1,max=10, error="Intensity must be an integer between 1 and 10"))
+  intensity = fields.Integer(required=True,validate=validate.Range(min=1,max=10, error="Intensity must be an integer between 1 and 10"))
   notes = fields.String(required=False,validate = validate.Length(min=0, max=300, error="Notes cannot exceed 300 characters"))
 
-  workout_exercises = fields.Nested(lambda: WorkoutExerciseSchema(exclude=("workout",)),many=True)
+  exercises = fields.Nested(lambda: WorkoutExerciseSchema(exclude=("workout",)),many=True)
 
   @validates("date")
   def validates_date(self,value):
@@ -56,7 +56,7 @@ class WorkoutExercise(db.Model):
   weight = db.Column(db.Float, nullable=True)
 
   workout_id = db.Column(db.Integer, db.ForeignKey('workouts.id'))
-  workout = db.relationship('Workout', back_populates='workout_exercises')
+  workout = db.relationship('Workout', back_populates='exercises')
 
 class WorkoutExerciseSchema(Schema):
   id = fields.Int(dump_only=True)
