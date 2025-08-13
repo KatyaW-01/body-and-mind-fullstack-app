@@ -23,17 +23,27 @@ class WorkoutExercise(db.Model):
   name = db.Column(db.String)
   sets = db.Column(db.Integer)
   reps = db.Column(db.Integer)
-  weight = db.Column(db.Integer)
+  weight = db.Column(db.Float)
 
   workout_id = db.Column(db.Integer, db.ForeignKey('workouts.id'))
   workout = db.relationship('Workout', back_populates='workout_exercises')
 
 class MoodLog(db.Model):
-  __tablename__ = 'mood_log'
+  __tablename__ = 'mood_logs'
 
   id = db.Column(db.Integer, primary_key = True)
   date = db.Column(db.Date, nullable=False, default = date.today)
   rating = db.Column(db.Integer)
   mood = db.Column(db.String)
   notes = db.Column(db.String)
+
+class Weather(db.Model):
+  __tablename__ = 'weather'
+
+  id = db.Column(db.Integer, primary_key = True)
+  date = db.Column(db.DateTime)
+  temperature = db.Column(db.Float)
+  description = db.Column(db.String)
+
+
 
