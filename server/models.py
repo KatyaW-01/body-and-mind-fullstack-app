@@ -10,7 +10,7 @@ class Workout(db.Model):
   id = db.Column(db.Integer, primary_key = True)
   date = db.Column(db.Date, nullable=False, default = date.today)
   type = db.Column(db.String)
-  duration = db.Column(db.Integer)
+  duration = db.Column(db.Integer, nullable=False)
   intensity = db.Column(db.Integer)
   notes = db.Column(db.String)
 
@@ -33,10 +33,11 @@ class MoodLog(db.Model):
 
   id = db.Column(db.Integer, primary_key = True)
   date = db.Column(db.Date, nullable=False, default = date.today)
-  rating = db.Column(db.Integer)
+  rating = db.Column(db.Integer, nullable=False)
   mood = db.Column(db.String)
   notes = db.Column(db.String)
 
+#the data in this model will come from an API
 class Weather(db.Model):
   __tablename__ = 'weather'
 
@@ -45,5 +46,8 @@ class Weather(db.Model):
   temperature = db.Column(db.Float)
   description = db.Column(db.String)
 
-
-
+class WeatherSchema(Schema):
+  id = fields.Int(dump_only=True)
+  date = fields.DateTime()
+  temperature = fields.Float()
+  description = fields.String()
