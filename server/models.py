@@ -37,6 +37,14 @@ class MoodLog(db.Model):
   mood = db.Column(db.String)
   notes = db.Column(db.String)
 
+class MoodLogSchema(Schema):
+  id = fields.Int(dump_only=True)
+  date = fields.Date()
+  rating = fields.Integer()
+  mood = fields.String()
+  notes = fields.String()
+
+
 #the data in this model will come from an API
 class Weather(db.Model):
   __tablename__ = 'weather'
