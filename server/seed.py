@@ -23,6 +23,12 @@ with app.app_context():
   db.session.commit()
 
   #create related workout exercises
+  we1 = WorkoutExercise(workout=w3, name="squats", sets=3, reps=10, weight=75.0)
+  we2 = WorkoutExercise(workout=w3, name="deadlifts", sets=3, reps=10, weight=65.0)
+  we3 = WorkoutExercise(workout=w3, name="hip thrusts", sets=3, reps=8, weight=115.0)
+
+  db.session.add_all([we1,we2,we3])
+  db.session.commit()
 
   #add Moods
  
