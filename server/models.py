@@ -80,7 +80,7 @@ class MoodLogSchema(Schema):
   id = fields.Int(dump_only=True)
   date = fields.Date(required=False)
   rating = fields.Integer(required=True, validate=validate.Range(min=1, max=10, error="Mood rating must be an integer between 1 and 10"))
-  mood = fields.String(validate=validate.OneOf(["happy","sad","angry","anxious","calm"]))
+  mood = fields.String(validate=validate.OneOf(["happy","sad","angry","anxious","calm", "excited", "tired"]))
   notes = fields.String(validate = validate.Length(min=0, max=300, error="Notes cannot exceed 300 characters"))
 
   @validates("date")

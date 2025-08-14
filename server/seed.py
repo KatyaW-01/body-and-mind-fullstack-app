@@ -38,20 +38,20 @@ with app.app_context():
 
   #create moods
   #user tracks mood every day regardless of if they worked out or not
-  m1 = MoodLog(date=date(2025,7,28), rating=, mood="", notes="") #worked out 
-  m2 = MoodLog(date=date(2025,7,29), rating=, mood="", notes="")
-  m3 = MoodLog(date=date(2025,7,30), rating=, mood="", notes="") #worked out 
-  m4 = MoodLog(date=date(2025,7,31), rating=, mood="", notes="")
-  m5 = MoodLog(date=date(2025,8,1), rating=, mood="", notes="")
-  m6 = MoodLog(date=date(2025,8,2), rating=, mood="", notes="")
-  m7 = MoodLog(date=date(2025,8,3), rating=, mood="", notes="")
-  m8 = MoodLog(date=date(2025,8,4), rating=, mood="", notes="") #worked out 
-  m9 = MoodLog(date=date(2025,8,5), rating=, mood="", notes="") #worked out 
-  m10 = MoodLog(date=date(2025,8,6), rating=, mood="", notes="")
-  m11 = MoodLog(date=date(2025,8,7), rating=, mood="", notes="") #worked out 
-  m12 = MoodLog(date=date(2025,8,8), rating=, mood="", notes="")
-  m13 = MoodLog(date=date(2025,8,9), rating=, mood="", notes="")
-  m14 = MoodLog(date=date(2025,8,10), rating=, mood="", notes="") #worked out
-  m15 = MoodLog(date=date(2025,8,11), rating=, mood="", notes="") #worked out 
-  m16 = MoodLog(date=date(2025,8,12), rating=, mood="", notes="")
+  m1 = MoodLog(date=date(2025,7,28), rating=6, mood="calm", notes="An average day")
+  m2 = MoodLog(date=date(2025,7,29), rating=8, mood="happy", notes="Had a great day today")
+  m3 = MoodLog(date=date(2025,7,30), rating=8, mood="happy", notes="Lovely hike with friends today")
+  m4 = MoodLog(date=date(2025,7,31), rating=7, mood="calm", notes="Chill day")
+  m5 = MoodLog(date=date(2025,8,1), rating=5, mood="tired", notes="Didn't have much energy today")
+  m6 = MoodLog(date=date(2025,8,2), rating=3, mood="anxious", notes="Not a great day")
+  m7 = MoodLog(date=date(2025,8,3), rating=2, mood="sad", notes="Not feeling my best today")
+  m8 = MoodLog(date=date(2025,8,4), rating=5, mood="calm", notes="Getting back into the groove of things")
+  m9 = MoodLog(date=date(2025,8,5), rating=7, mood="happy") 
+  m10 = MoodLog(date=date(2025,8,6), rating=8, mood="happy", notes="Feeling good today")
+  m11 = MoodLog(date=date(2025,8,7), rating=10, mood="excited")
+  m12 = MoodLog(date=date(2025,8,8), rating=7, mood="calm", notes="Nothing much happened today")
+  m13 = MoodLog(date=date(2025,8,9), rating=5, mood="angry", notes="Everything has been irritating me today")
+  m14 = MoodLog(date=date(2025,8,10), rating=7, mood="calm", notes="Feeling better than the day before")
+  m15 = MoodLog(date=date(2025,8,11), rating=9, mood="happy", notes="Felt good about my work and climbing session today")
+  m16 = MoodLog(date=date(2025,8,12), rating=8, mood="happy")
  
