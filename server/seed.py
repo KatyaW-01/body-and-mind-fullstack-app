@@ -6,8 +6,8 @@ from datetime import date
 
 with app.app_context():
   #reset data
-  Workout.query.delete()
   WorkoutExercise.query.delete()
+  Workout.query.delete()
   MoodLog.query.delete()
   Weather.query.delete()
 
@@ -54,4 +54,7 @@ with app.app_context():
   m14 = MoodLog(date=date(2025,8,10), rating=7, mood="calm", notes="Feeling better than the day before")
   m15 = MoodLog(date=date(2025,8,11), rating=9, mood="happy", notes="Felt good about my work and climbing session today")
   m16 = MoodLog(date=date(2025,8,12), rating=8, mood="happy")
+
+  db.session.add_all([m1,m2,m3,m4,m5,m6,m7,m8,m9,m10,m11,m12,m13,m14,m15,m16])
+  db.session.commit()
  
