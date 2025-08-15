@@ -178,7 +178,16 @@ def update_mood(id):
 
 @app.route('/api/moods/<id>', methods=["DELETE"])
 def delete_mood(id):
-  pass
+  mood = MoodLog.query.filter_by(id=id).first()
+  if mood:
+    db.session.delete(mood)
+    db.session.commit()
+    body = {'message': f'Mood {id} deleted successfully.'}
+    status = 200
+  else:
+    body = {'error': f'Mood {id} not found.'}
+    status = 404
+  return make_response(body,status)
 
 #weather routes
 
