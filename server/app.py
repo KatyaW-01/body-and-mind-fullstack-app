@@ -15,6 +15,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 migrate = Migrate(app, db)
 
+#workout routes
 @app.route('/api/workouts', methods=["GET"])
 def get_workouts():
   pass
@@ -24,14 +25,26 @@ def create_workout():
   pass
 
 @app.route('/api/workouts/<id>', methods=["GET"])
-def get_one_workout():
+def get_one_workout(id):
   pass
 
 @app.route('/api/workouts/<id>', methods=["PATCH"])
-def update_workout():
+def update_workout(id):
   pass
 
 @app.route('/api/workouts/<id>', methods=["DELETE"])
-def delete_workout():
+def delete_workout(id):
   pass
 
+#workout exercise routes
+@app.route('/api/workouts/<workout_id>/exercises', method=["POST"])
+def create_workout_exercise(workout_id):
+  pass
+
+@app.route('/api/workouts/<workout_id>/exercises/<id>', method=["PATCH"])
+def update_workout_exercise(workout_id,id):
+  pass
+
+@app.route('/api/workouts/<workout_id>/exercises/<id>', method=["DELETE"])
+def delete_workout_exercise(workout_id,id):
+  pass
