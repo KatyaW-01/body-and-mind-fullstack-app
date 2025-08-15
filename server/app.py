@@ -48,3 +48,30 @@ def update_workout_exercise(workout_id,id):
 @app.route('/api/workouts/<workout_id>/exercises/<id>', method=["DELETE"])
 def delete_workout_exercise(workout_id,id):
   pass
+
+#mood routes
+@app.route('/api/moods', methods=["GET"])
+def get_moods():
+  pass
+
+@app.route('/api/moods', methods=["POST"])
+def create_moods():
+  pass
+
+@app.route('/api/moods/<id>', methods=["GET"])
+def get_one_mood(id):
+  pass
+
+@app.route('/api/moods/<id>', methods=["PATCH"])
+def update_mood(id):
+  pass
+
+@app.route('/api/moods/<id>', methods=["DELETE"])
+def delete_mood(id):
+  pass
+
+#weather routes
+
+
+
+
