@@ -38,8 +38,13 @@ def create_workout():
 @app.route('/api/workouts/<id>', methods=["GET"])
 def get_one_workout(id):
   workout = Workout.query.filter_by(id=id).first()
-  result = WorkoutSchema().dump(workout)
-  return make_response(result,200)
+  if workout:
+    result = WorkoutSchema().dump(workout)
+    status = 200
+  else:
+    result = {"error": f"Workout {id} not found"}
+    status = 404
+  return make_response(result, status)
 
 @app.route('/api/workouts/<id>', methods=["PATCH"])
 def update_workout(id):
@@ -71,7 +76,7 @@ def delete_workout(id):
     body = {'message': f'Workout {id} deleted successfully.'}
     status = 200
   else:
-    body = {'message': f'Workout {id} not found.'}
+    body = {'error': f'Workout {id} not found.'}
     status = 404
   return make_response(body,status)
 
@@ -117,14 +122,16 @@ def delete_workout_exercise(workout_id,id):
     body = {'message': f'Workout Exercise {id} deleted successfully.'}
     status = 200
   else:
-    body = {'message': f'Workout Exercise {id} not found.'}
+    body = {'error': f'Workout Exercise {id} not found.'}
     status = 404
   return make_response(body,status)
 
 #mood routes
 @app.route('/api/moods', methods=["GET"])
 def get_moods():
-  pass
+  moods = MoodLog.query.all()
+  result = MoodLogSchema(many=True).dump(moods)
+  return make_response(result,200)
 
 @app.route('/api/moods', methods=["POST"])
 def create_moods():
@@ -132,7 +139,14 @@ def create_moods():
 
 @app.route('/api/moods/<id>', methods=["GET"])
 def get_one_mood(id):
-  pass
+  mood = MoodLog.query.filter_by(id=id).first()
+  if mood:
+    result = MoodLogSchema().dump(mood)
+    status = 200
+  else:
+    result = {"error": f"Mood {id} not found"}
+    status = 404
+  return make_response(result, status)
 
 @app.route('/api/moods/<id>', methods=["PATCH"])
 def update_mood(id):
