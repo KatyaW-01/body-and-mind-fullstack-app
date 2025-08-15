@@ -64,7 +64,16 @@ def update_workout(id):
 
 @app.route('/api/workouts/<id>', methods=["DELETE"])
 def delete_workout(id):
-  pass
+  workout = Workout.query.filter_by(id=id).first()
+  if workout:
+    db.session.delete(workout)
+    db.session.commit()
+    body = {'message': f'Workout {id} deleted successfully.'}
+    status = 200
+  else:
+    body = {'message': f'Workout {id} not found.'}
+    status = 404
+  return make_response(body,status)
 
 #workout exercise routes
 @app.route('/api/workouts/<workout_id>/exercises', methods=["POST"])
