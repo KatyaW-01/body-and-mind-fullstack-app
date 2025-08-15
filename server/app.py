@@ -24,7 +24,16 @@ def get_workouts():
 
 @app.route('/api/workouts', methods=["POST"])
 def create_workout():
-  pass
+  data = request.get_json()
+  workout_data = WorkoutSchema().load(data)
+  workout = Workout(date=workout_data["date"], type=workout_data["type"], duration=workout_data["duration"], intensity=workout_data["intensity"], notes = workout_data["notes"])
+  if workout:
+    db.session.add(workout)
+    db.session.commit()
+    result = WorkoutSchema().dump(workout)
+    return make_response(result, 201)
+  else:
+    return make_response({"error": "workout could not be created. Please try again"},400)
 
 @app.route('/api/workouts/<id>', methods=["GET"])
 def get_one_workout(id):
@@ -34,7 +43,24 @@ def get_one_workout(id):
 
 @app.route('/api/workouts/<id>', methods=["PATCH"])
 def update_workout(id):
-  pass
+  workout = Workout.query.filter_by(id=id).first()
+  data = request.get_json()
+  if workout:
+    if 'date' in data:
+      workout.date = data['date']
+    if 'type' in data:
+      workout.type = data['type']
+    if 'duration' in data:
+      workout.duration = data['duration']
+    if 'intensity' in data:
+      workout.intensity = data['intensity']
+    if 'notes' in data:
+      workout.notes = data['notes']
+
+    db.session.commit()
+    return {'message': f'Workout {id} updated successfully'}, 200
+  else:
+    return {'error': f'Workout {id} not found'}, 404
 
 @app.route('/api/workouts/<id>', methods=["DELETE"])
 def delete_workout(id):

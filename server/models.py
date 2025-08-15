@@ -42,8 +42,8 @@ class WorkoutSchema(Schema):
   exercises = fields.Nested(lambda: WorkoutExerciseSchema(exclude=("workout",)),many=True)
 
   @validates("date")
-  def validates_date(self,value):
-    if value > date.today():
+  def validates_date(self,value, **kwargs):
+    if value and value > date.today():
       raise ValidationError("Date cannot be in the future.")
 
 class WorkoutExercise(db.Model):
@@ -84,8 +84,8 @@ class MoodLogSchema(Schema):
   notes = fields.String(validate = validate.Length(min=0, max=300, error="Notes cannot exceed 300 characters"))
 
   @validates("date")
-  def validates_date(self,value):
-    if value > date.today():
+  def validates_date(self, value, **kwargs):
+    if value and value > date.today():
       raise ValidationError("Date cannot be in the future.")
 
 
