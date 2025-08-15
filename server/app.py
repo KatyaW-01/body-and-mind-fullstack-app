@@ -89,10 +89,24 @@ def create_workout_exercise(workout_id):
   else:
     return make_response({"error": "workout exercise could not be created. Please try again"},400)
 
-
 @app.route('/api/workouts/<workout_id>/exercises/<id>', methods=["PATCH"])
 def update_workout_exercise(workout_id,id):
-  pass
+  workout_exercise = WorkoutExercise.query.filter_by(id=id).first()
+  data = request.get_json()
+  if workout_exercise:
+    if 'name' in data:
+      workout_exercise.name = data['name']
+    if 'sets' in data:
+      workout_exercise.sets = data['sets']
+    if 'reps' in data:
+      workout_exercise.reps = data['reps']
+    if 'weight' in data:
+      workout_exercise.weight = data['weight']
+
+    db.session.commit()
+    return {'message': f'Workout Exercise {id} updated successfully'}, 200
+  else:
+    return {'error': f'Workout Exercise {id} not found'}, 404
 
 @app.route('/api/workouts/<workout_id>/exercises/<id>', methods=["DELETE"])
 def delete_workout_exercise(workout_id,id):
