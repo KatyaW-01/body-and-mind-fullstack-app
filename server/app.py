@@ -91,7 +91,7 @@ def create_workout_exercise(workout_id):
 
 @app.route('/api/workouts/<workout_id>/exercises/<id>', methods=["PATCH"])
 def update_workout_exercise(workout_id,id):
-  workout_exercise = WorkoutExercise.query.filter_by(id=id).first()
+  workout_exercise = WorkoutExercise.query.filter_by(id=id, workout_id=workout_id).first()
   data = request.get_json()
   if workout_exercise:
     if 'name' in data:
@@ -110,7 +110,16 @@ def update_workout_exercise(workout_id,id):
 
 @app.route('/api/workouts/<workout_id>/exercises/<id>', methods=["DELETE"])
 def delete_workout_exercise(workout_id,id):
-  pass
+  workout_exercise = WorkoutExercise.query.filter_by(id=id, workout_id=workout_id).first()
+  if workout_exercise:
+    db.session.delete(workout_exercise)
+    db.session.commit()
+    body = {'message': f'Workout Exercise {id} deleted successfully.'}
+    status = 200
+  else:
+    body = {'message': f'Workout Exercise {id} not found.'}
+    status = 404
+  return make_response(body,status)
 
 #mood routes
 @app.route('/api/moods', methods=["GET"])
