@@ -65,7 +65,7 @@ class WorkoutExerciseSchema(Schema):
   reps = fields.Integer(validate=validate.Range(min=0,max=200))
   weight = fields.Float(validate=validate.Range(min=0))
 
-  workout = fields.Nested(lambda: WorkoutSchema(exclude=("workout_exercises",)))
+  workout = fields.Nested(lambda: WorkoutSchema(exclude=("exercises",)))
 
 class MoodLog(db.Model):
   __tablename__ = 'mood_logs'
