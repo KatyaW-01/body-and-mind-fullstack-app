@@ -26,7 +26,7 @@ def get_workouts():
 def create_workout():
   data = request.get_json()
   workout_data = WorkoutSchema().load(data)
-  workout = Workout(date=workout_data["date"], type=workout_data["type"], duration=workout_data["duration"], intensity=workout_data["intensity"], notes = workout_data["notes"])
+  workout = Workout(date=workout_data.get('date'), type=workout_data["type"], duration=workout_data["duration"], intensity=workout_data["intensity"], notes = workout_data.get('notes'))
   if workout:
     db.session.add(workout)
     db.session.commit()
@@ -85,7 +85,7 @@ def delete_workout(id):
 def create_workout_exercise(workout_id):
   data = request.get_json()
   exercise_data = WorkoutExerciseSchema().load(data)
-  exercise = WorkoutExercise(workout_id=workout_id,name=exercise_data["name"],sets=exercise_data["sets"],reps=exercise_data["reps"],weight=exercise_data["weight"])
+  exercise = WorkoutExercise(workout_id=workout_id,name=exercise_data["name"],sets=exercise_data.get('sets'),reps=exercise_data.get('reps'),weight=exercise_data.get('weight'))
   if exercise:
     db.session.add(exercise)
     db.session.commit()
@@ -135,7 +135,16 @@ def get_moods():
 
 @app.route('/api/moods', methods=["POST"])
 def create_moods():
-  pass
+  data = request.get_json()
+  mood_data = MoodLogSchema().load(data)
+  mood = MoodLog(date=mood_data['date'], rating=mood_data['rating'], mood=mood_data['mood'], notes=mood_data.get('notes'))
+  if mood:
+    db.session.add(mood)
+    db.session.commit()
+    result = MoodLogSchema().dump(mood)
+    return make_response(result, 201)
+  else:
+    return make_response({"error": "mood could not be created. Please try again"},400)
 
 @app.route('/api/moods/<id>', methods=["GET"])
 def get_one_mood(id):
