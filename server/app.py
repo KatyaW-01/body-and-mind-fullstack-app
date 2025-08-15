@@ -28,7 +28,9 @@ def create_workout():
 
 @app.route('/api/workouts/<id>', methods=["GET"])
 def get_one_workout(id):
-  pass
+  workout = Workout.query.filter_by(id=id).first()
+  result = WorkoutSchema().dump(workout)
+  return make_response(result,200)
 
 @app.route('/api/workouts/<id>', methods=["PATCH"])
 def update_workout(id):
