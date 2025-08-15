@@ -159,7 +159,22 @@ def get_one_mood(id):
 
 @app.route('/api/moods/<id>', methods=["PATCH"])
 def update_mood(id):
-  pass
+  mood = MoodLog.query.filter_by(id=id).first()
+  data = request.get_json()
+  if mood:
+    if 'date' in data:
+      mood.date = data['date']
+    if 'rating' in data:
+      mood.rating = data['rating']
+    if 'mood' in data:
+      mood.mood = data['mood']
+    if 'notes' in data:
+      mood.notes = data['notes']
+
+    db.session.commit()
+    return {'message': f'Mood {id} updated successfully'}, 200
+  else:
+    return {'error': f'Mood {id} not found'}, 404
 
 @app.route('/api/moods/<id>', methods=["DELETE"])
 def delete_mood(id):
