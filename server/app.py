@@ -18,7 +18,9 @@ migrate = Migrate(app, db)
 #workout routes
 @app.route('/api/workouts', methods=["GET"])
 def get_workouts():
-  pass
+  workouts = Workout.query.all()
+  result = WorkoutSchema(many=True).dump(workouts)
+  return make_response(result, 200)
 
 @app.route('/api/workouts', methods=["POST"])
 def create_workout():
@@ -37,15 +39,15 @@ def delete_workout(id):
   pass
 
 #workout exercise routes
-@app.route('/api/workouts/<workout_id>/exercises', method=["POST"])
+@app.route('/api/workouts/<workout_id>/exercises', methods=["POST"])
 def create_workout_exercise(workout_id):
   pass
 
-@app.route('/api/workouts/<workout_id>/exercises/<id>', method=["PATCH"])
+@app.route('/api/workouts/<workout_id>/exercises/<id>', methods=["PATCH"])
 def update_workout_exercise(workout_id,id):
   pass
 
-@app.route('/api/workouts/<workout_id>/exercises/<id>', method=["DELETE"])
+@app.route('/api/workouts/<workout_id>/exercises/<id>', methods=["DELETE"])
 def delete_workout_exercise(workout_id,id):
   pass
 
@@ -72,6 +74,5 @@ def delete_mood(id):
 
 #weather routes
 
-
-
-
+if __name__ == '__main__':
+  app.run(port=5555, debug=True)
