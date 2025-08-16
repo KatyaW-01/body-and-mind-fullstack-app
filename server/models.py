@@ -28,7 +28,7 @@ class Workout(db.Model):
   intensity = db.Column(db.Integer, nullable=False)
   notes = db.Column(db.String, nullable=True)
 
-  exercises = db.relationship('WorkoutExercise', back_populates='workout')
+  exercises = db.relationship('WorkoutExercise', back_populates='workout', cascade="all, delete-orphan")
 
 class WorkoutSchema(Schema):
   id = fields.Int(dump_only=True)
