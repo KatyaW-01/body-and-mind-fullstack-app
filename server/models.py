@@ -28,7 +28,7 @@ class Workout(db.Model):
   intensity = db.Column(db.Integer, nullable=False)
   notes = db.Column(db.String, nullable=True)
 
-  exercises = db.relationship('WorkoutExercise', back_populates='workout')
+  exercises = db.relationship('WorkoutExercise', back_populates='workout', cascade="all, delete-orphan")
 
 class WorkoutSchema(Schema):
   id = fields.Int(dump_only=True)
@@ -42,8 +42,8 @@ class WorkoutSchema(Schema):
   exercises = fields.Nested(lambda: WorkoutExerciseSchema(exclude=("workout",)),many=True)
 
   @validates("date")
-  def validates_date(self,value):
-    if value > date.today():
+  def validates_date(self,value, **kwargs):
+    if value and value > date.today():
       raise ValidationError("Date cannot be in the future.")
 
 class WorkoutExercise(db.Model):
@@ -65,7 +65,7 @@ class WorkoutExerciseSchema(Schema):
   reps = fields.Integer(validate=validate.Range(min=0,max=200))
   weight = fields.Float(validate=validate.Range(min=0))
 
-  workout = fields.Nested(lambda: WorkoutSchema(exclude=("workout_exercises",)))
+  workout = fields.Nested(lambda: WorkoutSchema(exclude=("exercises",)))
 
 class MoodLog(db.Model):
   __tablename__ = 'mood_logs'
@@ -84,8 +84,8 @@ class MoodLogSchema(Schema):
   notes = fields.String(validate = validate.Length(min=0, max=300, error="Notes cannot exceed 300 characters"))
 
   @validates("date")
-  def validates_date(self,value):
-    if value > date.today():
+  def validates_date(self, value, **kwargs):
+    if value and value > date.today():
       raise ValidationError("Date cannot be in the future.")
 
 
