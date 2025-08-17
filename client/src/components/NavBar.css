@@ -1,0 +1,28 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px; 
+  margin-right: 20px
+}
+
+.nav-link {
+  display: inline-block;
+  box-sizing: border-box;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+  padding: 7px;
+  background: #A8A8A8;
+  color: black;
+}
+
+.nav-link:hover {
+  background: #909090;
+}
+
+.nav-link.active {
+  background: #6e6e6e;
+  font-weight: bold;
+  
+}
