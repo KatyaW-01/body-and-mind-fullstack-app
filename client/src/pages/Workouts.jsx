@@ -11,12 +11,13 @@ function Workouts() {
     fetchWorkouts().then(data => setWorkouts(data))
   },[])
 
-  console.log("workouts:", workouts)
-
   return (
     <div>
       <NavBar />
-      <p>View, add, edit, delete workouts here</p>
+      <div>
+        <button>Log a Workout</button>
+      </div>
+      <h1>Workouts</h1>
       <Outlet context = {{workouts}} />
     </div>
   )
