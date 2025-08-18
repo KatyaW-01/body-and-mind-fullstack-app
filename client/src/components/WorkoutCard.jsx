@@ -1,4 +1,17 @@
+import React from "react"
+import { deleteWorkout } from "../api/workouts"
+
 function WorkoutCard({workout}) {
+
+  function handleDelete() {
+    deleteWorkout(workout.id)
+    const result = deleteWorkout(workout.id)
+    if (!result.error) {
+      alert("Workout successfully deleted")
+    }
+  }
+  
+
   return (
     <div>
       <h3>{workout.date}</h3>
@@ -20,7 +33,7 @@ function WorkoutCard({workout}) {
       )}
       <div>
         <button>Edit</button>
-        <button>Delete</button>
+        <button onClick={handleDelete}>Delete</button>
       </div>
     </div>
   )
