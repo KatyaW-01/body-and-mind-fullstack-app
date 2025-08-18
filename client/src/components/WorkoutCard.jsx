@@ -15,7 +15,7 @@ function WorkoutCard({workout, setWorkouts}) {
   const navigate = useNavigate()
 
   function handleEdit() {
-    navigate("/workouts/workoutForm")
+    navigate("/workouts/workoutForm", {state: {workout}})
   }
 
   return (
