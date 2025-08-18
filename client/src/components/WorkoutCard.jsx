@@ -1,5 +1,6 @@
 import React from "react"
 import { deleteWorkout } from "../api/workouts"
+import { useNavigate } from "react-router-dom"
 
 function WorkoutCard({workout, setWorkouts}) {
 
@@ -11,7 +12,11 @@ function WorkoutCard({workout, setWorkouts}) {
     }
     setWorkouts(prev => prev.filter(w => w.id !== workout.id))
   }
-  
+  const navigate = useNavigate()
+
+  function handleEdit() {
+    navigate("/workouts/workoutForm")
+  }
 
   return (
     <div>
@@ -33,7 +38,7 @@ function WorkoutCard({workout, setWorkouts}) {
         </div>
       )}
       <div>
-        <button>Edit</button>
+        <button onClick={handleEdit} >Edit</button>
         <button onClick={handleDelete}>Delete</button>
       </div>
     </div>
