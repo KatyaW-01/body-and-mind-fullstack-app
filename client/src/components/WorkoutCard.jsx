@@ -1,7 +1,7 @@
 import React from "react"
 import { deleteWorkout } from "../api/workouts"
 
-function WorkoutCard({workout}) {
+function WorkoutCard({workout, setWorkouts}) {
 
   function handleDelete() {
     deleteWorkout(workout.id)
@@ -9,6 +9,7 @@ function WorkoutCard({workout}) {
     if (!result.error) {
       alert("Workout successfully deleted")
     }
+    setWorkouts(prev => prev.filter(w => w.id !== workout.id))
   }
   
 

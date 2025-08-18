@@ -18,7 +18,7 @@ function Workouts() {
         <button>Log a Workout</button>
       </div>
       <h1>Workouts</h1>
-      <Outlet context = {{workouts}} />
+      <Outlet context = {{workouts, setWorkouts}} />
     </div>
   )
 }

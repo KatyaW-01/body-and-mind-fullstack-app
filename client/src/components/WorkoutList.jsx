@@ -3,7 +3,7 @@ import {useOutletContext} from "react-router-dom"
 import WorkoutCard from "./WorkoutCard"
 
 function WorkoutList() {
-  const {workouts} = useOutletContext()
+  const {workouts, setWorkouts} = useOutletContext()
   if(workouts.length == 0) {
     return "No workouts tracked. Please add a workout"
   }
@@ -12,7 +12,7 @@ function WorkoutList() {
       {
         workouts.map((workout) => (
           <div key={workout.id}>
-            <WorkoutCard workout={workout} />
+            <WorkoutCard workout={workout} setWorkouts={setWorkouts}/>
           </div>
         ))
       }
