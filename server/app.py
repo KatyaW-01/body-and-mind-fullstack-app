@@ -191,5 +191,12 @@ def delete_mood(id):
 
 #weather routes
 
+@app.after_request
+def add_headers(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+    return response
+
+
 if __name__ == '__main__':
   app.run(port=5555, debug=True)
