@@ -7,6 +7,10 @@ import { fetchWorkouts } from "../api/workouts"
 function WorkoutForm() {
   const location = useLocation()
   const workout = location.state.workout
+  //console.log(workout)
+  if (workout.notes === null) {
+    workout['notes'] = ""
+  }
 
   const [editedWorkout,setEditedWorkout] = useState({id: workout.id, date: workout.date, type: workout.type, duration: workout.duration, intensity: workout.intensity, notes: workout.notes})
 
@@ -16,11 +20,20 @@ function WorkoutForm() {
 
   const navigate = useNavigate()
 
+  const today = new Date().toISOString().split("T")[0];
+
   async function handleSubmit(event) {
     //prevent page reload
     event.preventDefault()
+
+    //remove id key
+    const {id, ...updatedWorkout} = editedWorkout
+    if (updatedWorkout.notes === "") {
+      updatedWorkout.notes = null;
+    }
+    
     //make the PATCH request
-    const result = await updateWorkout(workout.id, editedWorkout)
+    const result = await updateWorkout(workout.id, updatedWorkout)
 
     if(result.error) {
       setErrors(result.error)
@@ -50,7 +63,7 @@ function WorkoutForm() {
     <div>
       <form onSubmit={handleSubmit}>
         <label htmlFor="date">Date:</label>
-        <input type="text" id="date" name="date" value={editedWorkout.date} onChange={handleChange}/>
+        <input type="date" id="date" name="date" max={today} value={editedWorkout.date} onChange={handleChange}/>
         {errors.date && <p className="error">{errors.date[0]}</p>}
         <label htmlFor="type">Type:</label>
         <input type="text" id="type" name="type" value={editedWorkout.type} onChange={handleChange}/>
