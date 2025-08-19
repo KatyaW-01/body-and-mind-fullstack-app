@@ -26,15 +26,15 @@ def get_workouts():
 @app.route('/api/workouts', methods=["POST"])
 def create_workout():
   data = request.get_json()
-  workout_data = WorkoutSchema().load(data)
-  workout = Workout(date=workout_data.get('date'), type=workout_data["type"], duration=workout_data["duration"], intensity=workout_data["intensity"], notes = workout_data.get('notes'))
-  if workout:
+  try:
+    workout_data = WorkoutSchema().load(data)
+    workout = Workout(date=workout_data.get('date'), type=workout_data["type"], duration=workout_data["duration"], intensity=workout_data["intensity"], notes = workout_data.get('notes'))
     db.session.add(workout)
     db.session.commit()
     result = WorkoutSchema().dump(workout)
     return make_response(result, 201)
-  else:
-    return make_response({"error": "workout could not be created. Please try again"},400)
+  except ValidationError as err:
+    return {'error': err.messages}, 400
 
 @app.route('/api/workouts/<id>', methods=["GET"])
 def get_one_workout(id):
@@ -56,7 +56,7 @@ def update_workout(id):
   data = request.get_json()
 
   schema = WorkoutSchema(partial=True)
-  
+
   try:
     validated_data = schema.load(data)
   except ValidationError as err:
