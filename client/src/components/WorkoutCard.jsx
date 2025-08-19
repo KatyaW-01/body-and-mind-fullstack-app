@@ -24,7 +24,7 @@ function WorkoutCard({workout, setWorkouts}) {
       <p>Type: {workout.type}</p>
       <p>Duration: {workout.duration}</p>
       <p>Intensity: {workout.intensity}/10</p>
-      <p>Notes: {workout.notes}</p>
+      {workout.notes === null ? "" : <p>Notes: {workout.notes}</p>}
       {workout.exercises.length > 0 && (
         <div>
           <h4>Exercises:</h4>

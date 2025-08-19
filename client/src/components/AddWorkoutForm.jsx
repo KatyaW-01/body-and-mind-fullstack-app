@@ -1,17 +1,46 @@
 import React from "react"
 import {useState} from "react"
+import { createWorkout } from "../api/workouts"
+import { fetchWorkouts } from "../api/workouts"
+import {useOutletContext, useNavigate} from "react-router-dom"
 
 function AddWorkoutForm() {
   const [newWorkout, setNewWorkout] = useState({date: "", type: "", duration: "", intensity: 1, notes: ""})
+  const [errors, setErrors] = useState({})
+  
+  const {setWorkouts} = useOutletContext()
+
+  const navigate = useNavigate()
+
   // new Date() is formated as Mon Aug 19 2025 14:35:00 GMT-0600 (Central Standard Time)
   // need to transform it to "2025-08-19"
   const today = new Date().toISOString().split("T")[0];
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault()
-    //if notes is an empty string change it to null
+    //if notes is an empty string change it to null, if date is empty change to todays date
     const workout = {
-      ...newWorkout, notes: newWorkout.notes === "" ? null : newWorkout.notes
+      ...newWorkout, 
+      notes: newWorkout.notes === "" ? null : newWorkout.notes, 
+      date: newWorkout.date === "" ? today : newWorkout.date
+    }
+    
+    //make POST request
+    const result = await createWorkout(workout)
+
+    if(result.error) {
+      setErrors(result.error)
+      alert("Error adding workout. Please try again!")
+      return
+    } else {
+      alert("Workout successfully logged!")
+
+      //update state from the backend, ensuring the new workout is displayed
+      const updatedWorkouts = await fetchWorkouts()
+      setWorkouts(updatedWorkouts)
+
+      //take the user back to the workouts page
+      navigate("/workouts")
     }
   }
 
@@ -29,6 +58,7 @@ function AddWorkoutForm() {
       <div>
         <label htmlFor="date">Date:</label>
         <input type="date" id="date" name="date" max={today} value={newWorkout.date} onChange={handleChange}/>
+        {errors.date && <p className="error">{errors.date[0]}</p>}
       </div>
 
       <div>
@@ -46,22 +76,26 @@ function AddWorkoutForm() {
         <option value="Climbing">Climbing</option>
         <option value="Other">Other</option>
       </select> 
+      {errors.type && <p className="error">{errors.type[0]}</p>}
       </div>
 
       <div>
       <label htmlFor="duration">Duration (minutes):</label>
       <input type="number" id="duration" name="duration" value ={newWorkout.duration} onChange={handleChange}/>
+      {errors.duration && <p className="error">{errors.duration[0]}</p>}
       </div>
 
       <div>
       <label htmlFor="intensity">Intensity:</label>
       <input type="range" min="1" max="10" id="intensity" name="intensity" value={newWorkout.intensity} onChange={handleChange}/>
       <p>value: {newWorkout.intensity}</p>
+      {errors.intensity && <p className="error">{errors.intensity[0]}</p>}
       </div>
 
       <div>
         <label htmlFor="notes">Notes (optional):</label>
         <input type="text" id="notes" name="notes" value ={newWorkout.notes} onChange={handleChange}/>
+        {errors.notes && <p className="error">{errors.notes[0]}</p>}
       </div>
 
       <div>
