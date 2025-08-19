@@ -2,8 +2,7 @@ import React from "react"
 import NavBar from "../components/NavBar"
 import { fetchWorkouts } from "../api/workouts"
 import {useEffect, useState} from "react"
-import { Outlet } from "react-router-dom"
-import { useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom"
 
 function Workouts() {
   const [workouts, setWorkouts] = useState([])
@@ -13,6 +12,11 @@ function Workouts() {
   },[])
   
   const location = useLocation()
+  const navigate = useNavigate()
+
+  function handleLog() {
+    navigate("/workouts/addWorkoutForm")
+  }
 
   return (
     <div>
@@ -20,11 +24,15 @@ function Workouts() {
       <h1>
         {location.pathname === "/workouts"
           ? "Workouts"
-          : "Edit your Workout"
+          : location.pathname === "/workouts/workoutForm"
+          ? "Edit your Workout"
+          : location.pathname === "/workouts/addWorkoutForm"
+          ? "Add a New Workout"
+          : ""
         }
       </h1>
        {location.pathname === "/workouts" ?
-        <button>Log a Workout</button> : ""
+        <button onClick={handleLog}>Log a Workout</button> : ""
       }
       <Outlet context = {{workouts, setWorkouts}} />
     </div>
