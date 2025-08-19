@@ -1,25 +1,38 @@
 import React from "react"
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import {useState} from "react"
 import { updateWorkout } from "../api/workouts"
+import { fetchWorkouts } from "../api/workouts"
 
 function WorkoutForm() {
   const location = useLocation()
   const workout = location.state.workout
-  const [editedWorkout,setEditedWorkout] = useState({date: workout.date, type: workout.type, duration: workout.duration, intensity: workout.intensity, notes: workout.notes})
+  
+  const [editedWorkout,setEditedWorkout] = useState({id: workout.id, date: workout.date, type: workout.type, duration: workout.duration, intensity: workout.intensity, notes: workout.notes})
+
+  const {setWorkouts} = useOutletContext()
 
   const navigate = useNavigate()
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
+    //prevent page reload
     event.preventDefault()
-    const result = updateWorkout(workout.id, editedWorkout)
+    //make the PATCH request
+    const result = await updateWorkout(workout.id, editedWorkout)
+    //if successful, notify user, re-fetch the data from the backend to update state, navigate back to workouts page
     if (!result.error) {
       alert("Workout successfully updated")
-      navigate("/workouts", { state: { editedWorkout } });
+      
+      const updatedWorkouts = await fetchWorkouts()
+      setWorkouts(updatedWorkouts)
+
+      navigate("/workouts");
+    } 
+
+    if(result.error) {
+
     }
   }
-
-  
 
   function handleChange(event) {
     const {name, value} = event.target
