@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from dotenv import load_dotenv
 from models import db, Workout, WorkoutSchema, WorkoutExercise, WorkoutExerciseSchema, MoodLog, MoodLogSchema, Weather, WeatherSchema
+from marshmallow import ValidationError
 
 load_dotenv()
 
@@ -49,23 +50,31 @@ def get_one_workout(id):
 @app.route('/api/workouts/<id>', methods=["PATCH"])
 def update_workout(id):
   workout = Workout.query.filter_by(id=id).first()
-  data = request.get_json()
-  if workout:
-    if 'date' in data:
-      workout.date = data['date']
-    if 'type' in data:
-      workout.type = data['type']
-    if 'duration' in data:
-      workout.duration = data['duration']
-    if 'intensity' in data:
-      workout.intensity = data['intensity']
-    if 'notes' in data:
-      workout.notes = data['notes']
-
-    db.session.commit()
-    return {'message': f'Workout {id} updated successfully'}, 200
-  else:
+  if not workout:
     return {'error': f'Workout {id} not found'}, 404
+  
+  data = request.get_json()
+
+  schema = WorkoutSchema(partial=True)
+  
+  try:
+    validated_data = schema.load(data)
+  except ValidationError as err:
+    return {'error': err.messages}, 400
+  if 'date' in validated_data:
+    workout.date = validated_data['date']
+  if 'type' in validated_data:
+    workout.type = validated_data['type']
+  if 'duration' in data:
+    workout.duration = validated_data['duration']
+  if 'intensity' in validated_data:
+    workout.intensity = validated_data['intensity']
+  if 'notes' in validated_data:
+    workout.notes = validated_data['notes']
+
+  db.session.commit()
+  return {'message': f'Workout {id} updated successfully'}, 200
+  
 
 @app.route('/api/workouts/<id>', methods=["DELETE"])
 def delete_workout(id):

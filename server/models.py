@@ -35,7 +35,7 @@ class WorkoutSchema(Schema):
   date = fields.Date(required=False)
   type = fields.String(required=True, validate=validate.OneOf(allowed_workout_types))
   #duration is in minutes
-  duration = fields.Integer(required=True, validate=validate.Range(min=1,max=500))
+  duration = fields.Integer(required=True, validate=validate.Range(min=1,max=500, error="duration must be between 1 and 500 minutes"))
   intensity = fields.Integer(required=True,validate=validate.Range(min=1,max=10, error="Intensity must be an integer between 1 and 10"))
   notes = fields.String(required=False,validate = validate.Length(min=0, max=300, error="Notes cannot exceed 300 characters"))
 
