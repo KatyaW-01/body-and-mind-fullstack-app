@@ -65,7 +65,7 @@ def update_workout(id):
     workout.date = validated_data['date']
   if 'type' in validated_data:
     workout.type = validated_data['type']
-  if 'duration' in data:
+  if 'duration' in validated_data:
     workout.duration = validated_data['duration']
   if 'intensity' in validated_data:
     workout.intensity = validated_data['intensity']
@@ -106,21 +106,27 @@ def create_workout_exercise(workout_id):
 @app.route('/api/workouts/<workout_id>/exercises/<id>', methods=["PATCH"])
 def update_workout_exercise(workout_id,id):
   workout_exercise = WorkoutExercise.query.filter_by(id=id, workout_id=workout_id).first()
-  data = request.get_json()
-  if workout_exercise:
-    if 'name' in data:
-      workout_exercise.name = data['name']
-    if 'sets' in data:
-      workout_exercise.sets = data['sets']
-    if 'reps' in data:
-      workout_exercise.reps = data['reps']
-    if 'weight' in data:
-      workout_exercise.weight = data['weight']
-
-    db.session.commit()
-    return {'message': f'Workout Exercise {id} updated successfully'}, 200
-  else:
+  if not workout_exercise:
     return {'error': f'Workout Exercise {id} not found'}, 404
+  
+  data = request.get_json()
+  schema = WorkoutExerciseSchema(partial=True)
+  try:
+    validated_data = schema.load(data)
+  except ValidationError as err:
+    return {'error': err.messages}, 400
+  if 'name' in validated_data:
+    workout_exercise.name = validated_data['name']
+  if 'sets' in validated_data:
+    workout_exercise.sets = validated_data['sets']
+  if 'reps' in validated_data:
+    workout_exercise.reps = validated_data['reps']
+  if 'weight' in validated_data:
+    workout_exercise.weight = validated_data['weight']
+
+  db.session.commit()
+  return {'message': f'Workout Exercise {id} updated successfully'}, 200
+
 
 @app.route('/api/workouts/<workout_id>/exercises/<id>', methods=["DELETE"])
 def delete_workout_exercise(workout_id,id):
