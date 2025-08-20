@@ -103,19 +103,19 @@ function WorkoutForm() {
             <form>
               <div>
                 <label htmlFor="name" >Name:</label>
-                <input type="text" id="name" name="name" />
+                <input type="text" id="name" name="name" value={exercise.name || ""}/>
               </div>
               <div>
                 <label htmlFor="sets" >Sets:</label>
-                <input type="number" id="sets" name="sets" />
+                <input type="number" id="sets" name="sets" value={exercise.sets || ""}/>
               </div>
               <div>
                 <label htmlFor="reps" >Reps:</label>
-                <input type="number" id="reps" name="reps" />
+                <input type="number" id="reps" name="reps" value={exercise.reps || ""}/>
               </div>
               <div>
                 <label htmlFor="weight" >Weight:</label>
-                <input type="number" id="weight" name="weight" />
+                <input type="number" id="weight" name="weight" value={exercise.weight || ""} />
               </div>
               <div>
                 <button type="submit" value="Submit">Submit Edit</button>
