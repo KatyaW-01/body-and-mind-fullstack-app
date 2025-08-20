@@ -61,6 +61,31 @@ function WorkoutForm() {
     }));
   }
 
+  function handleExerciseChange(index,event) {
+    const {name, value} = event.target
+
+    setEditedExercises(prevExercises => {
+      const updated = [...prevExercises]
+
+      let newValue = value
+      if(name === "sets" || name === "reps") {
+        if (value === "") {
+          newValue = ""
+        } else {
+          newValue = parseInt(value,10)
+        }
+      } else if (name === "weight") {
+        if (value === "") {
+          newValue = ""
+        } else {
+          newValue = parseFloat(value)
+        }
+      }
+      updated[index] = {...updated[index], [name]: newValue}
+      return updated
+    })
+  }
+  console.log(editedExercises)
   return (
     <div>
       <h3>Workout</h3>
@@ -98,24 +123,27 @@ function WorkoutForm() {
       {workout.exercises.length > 0 && (
       <div>
         <h3>Exercises</h3>
-        {workout.exercises.map((exercise) => (
+        {workout.exercises.map((exercise, index) => (
           <div key={exercise.id}>
+            <div>
+              <h4>{index + 1}.</h4>
+            </div>
             <form>
               <div>
                 <label htmlFor="name" >Name:</label>
-                <input type="text" id="name" name="name" value={exercise.name || ""}/>
+                <input type="text" id="name" name="name" value={editedExercises[index].name || ""} onChange={(event) => handleExerciseChange(index,event)} />
               </div>
               <div>
                 <label htmlFor="sets" >Sets:</label>
-                <input type="number" id="sets" name="sets" value={exercise.sets || ""}/>
+                <input type="number" id="sets" name="sets" value={editedExercises[index].sets || ""} onChange={(event) => handleExerciseChange(index,event)} />
               </div>
               <div>
                 <label htmlFor="reps" >Reps:</label>
-                <input type="number" id="reps" name="reps" value={exercise.reps || ""}/>
+                <input type="number" id="reps" name="reps" value={editedExercises[index].reps || ""} onChange={(event) => handleExerciseChange(index,event)} />
               </div>
               <div>
                 <label htmlFor="weight" >Weight:</label>
-                <input type="number" id="weight" name="weight" value={exercise.weight || ""} />
+                <input type="number" id="weight" name="weight" value={editedExercises[index].weight || ""} onChange={(event) => handleExerciseChange(index,event)} />
               </div>
               <div>
                 <button type="submit" value="Submit">Submit Edit</button>
