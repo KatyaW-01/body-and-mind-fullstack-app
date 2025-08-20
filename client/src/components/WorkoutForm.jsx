@@ -7,12 +7,14 @@ import { fetchWorkouts } from "../api/workouts"
 function WorkoutForm() {
   const location = useLocation()
   const workout = location.state.workout
-  console.log(workout)
+  //console.log(workout)
   if (workout.notes === null) {
     workout['notes'] = ""
   }
 
   const [editedWorkout,setEditedWorkout] = useState({id: workout.id, date: workout.date, type: workout.type, duration: workout.duration, intensity: workout.intensity, notes: workout.notes})
+
+  const [editedExercises, setEditedExercises] = useState(workout.exercises || [])
 
   const [errors, setErrors] = useState({})
 
@@ -64,35 +66,35 @@ function WorkoutForm() {
       <h3>Workout</h3>
       <form onSubmit={handleSubmit}>
         <div>
-        <label htmlFor="date">Date:</label>
-        <input type="date" id="date" name="date" max={today} value={editedWorkout.date} onChange={handleChange}/>
-        {errors.date && <p className="error">{errors.date[0]}</p>}
+          <label htmlFor="date">Date:</label>
+          <input type="date" id="date" name="date" max={today} value={editedWorkout.date} onChange={handleChange}/>
+          {errors.date && <p className="error">{errors.date[0]}</p>}
         </div>
         <div>
-        <label htmlFor="type">Type:</label>
-        <input type="text" id="type" name="type" value={editedWorkout.type} onChange={handleChange}/>
-        {errors.type && <p className="error">{errors.type[0]}</p>}
+          <label htmlFor="type">Type:</label>
+          <input type="text" id="type" name="type" value={editedWorkout.type} onChange={handleChange}/>
+          {errors.type && <p className="error">{errors.type[0]}</p>}
         </div>
         <div>
-        <label htmlFor="duration">Duration:</label>
-        <input type="text" id="duration" name="duration" value={editedWorkout.duration} onChange={handleChange}/>
-        {errors.duration && <p className="error">{errors.duration[0]}</p>}
+          <label htmlFor="duration">Duration:</label>
+          <input type="text" id="duration" name="duration" value={editedWorkout.duration} onChange={handleChange}/>
+          {errors.duration && <p className="error">{errors.duration[0]}</p>}
         </div>
         <div>
-        <label htmlFor="intensity">Intensity:</label>
-        <input type="text" id="intensity" name="intensity" value={editedWorkout.intensity} onChange={handleChange}/>
-        {errors.intensity && <p className="error">{errors.intensity[0]}</p>}
+          <label htmlFor="intensity">Intensity:</label>
+          <input type="text" id="intensity" name="intensity" value={editedWorkout.intensity} onChange={handleChange}/>
+          {errors.intensity && <p className="error">{errors.intensity[0]}</p>}
         </div>
         <div>
-        <label htmlFor="notes">Notes:</label>
-        <input type="text" id="notes" name="notes" value={editedWorkout.notes} onChange={handleChange}/>
-        {errors.notes && <p className="error">{errors.notes[0]}</p>}
+          <label htmlFor="notes">Notes:</label>
+          <input type="text" id="notes" name="notes" value={editedWorkout.notes} onChange={handleChange}/>
+          {errors.notes && <p className="error">{errors.notes[0]}</p>}
         </div>
         <div>
-        <button type="submit" value="Submit">Submit</button>
+          <button type="submit" value="Submit">Submit</button>
         </div>
       </form>
-      {/* if a workout has exercises, create form for editing them */}
+      {/* if a workout has exercises, create form for editing/deleting them */}
       {workout.exercises.length > 0 && (
       <div>
         <h3>Exercises</h3>
