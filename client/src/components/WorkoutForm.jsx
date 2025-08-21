@@ -2,13 +2,12 @@ import React from "react"
 import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import {useState} from "react"
 import { updateWorkout, fetchWorkouts } from "../api/workouts"
-//import { fetchWorkouts } from "../api/workouts"
 import {updateWorkoutExercise, deleteWorkoutExercise} from "../api/workoutExercises"
 
 function WorkoutForm() {
   const location = useLocation()
   const workout = location.state.workout
-  //console.log(workout)
+  
   if (workout.notes === null) {
     workout['notes'] = ""
   }
@@ -30,16 +29,13 @@ function WorkoutForm() {
   async function handleSubmit(event) {
     //prevent page reload
     event.preventDefault()
-
     //remove id key
     const {id, ...updatedWorkout} = editedWorkout
     if (updatedWorkout.notes === "") {
       updatedWorkout.notes = null;
     }
-    
     //make the PATCH request
     const result = await updateWorkout(workout.id, updatedWorkout)
-
     if(result.error) {
       setErrors(result.error)
       alert("Error updating workout, please try again!")
@@ -48,11 +44,8 @@ function WorkoutForm() {
     //if successful, notify user, re-fetch the data from the backend to update state, navigate back to workouts page
     if (!result.error) {
       alert("Workout successfully updated")
-      
       const updatedWorkouts = await fetchWorkouts()
       setWorkouts(updatedWorkouts)
-
-      
     } 
   }
 
@@ -67,28 +60,22 @@ function WorkoutForm() {
   async function handleExerciseSubmit(index, event) {
     //prevent page reload
     event.preventDefault()
-
     //get just the one exercise object from the array
     const exercise = editedExercises[index]
     //remove id key
     const {id, ...updatedWorkoutExercise} = exercise
-
     // Make PATCH request
     const result = await updateWorkoutExercise(workout.id, id, updatedWorkoutExercise)
-
     if (result.error) {
       setExerciseErrors(result.error)
       alert("Error updating workout exercise, please try again!")
       return
     }
-
     if (!result.error) {
       alert("Exercise successfully updated!")
-
       const updatedWorkouts = await fetchWorkouts()
       setWorkouts(updatedWorkouts)
     }
-
   }
 
   function handleExerciseChange(index,event) {
@@ -133,6 +120,10 @@ function WorkoutForm() {
 
   function handleFinish() {
     navigate("/workouts");
+  }
+
+  function handleAddExercise() {
+    navigate("/workouts/addExercise", {state: {workout}})
   }
 
   return (
@@ -220,7 +211,7 @@ function WorkoutForm() {
       </div>
       )}
       <div>
-        <button>Add an exercise</button>
+        <button onClick={handleAddExercise}>Add an exercise</button>
       </div>
       <div>
         <button onClick={handleFinish}>Finish</button>
