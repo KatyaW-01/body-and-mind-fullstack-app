@@ -52,7 +52,7 @@ function WorkoutForm() {
       const updatedWorkouts = await fetchWorkouts()
       setWorkouts(updatedWorkouts)
 
-      navigate("/workouts");
+      
     } 
   }
 
@@ -131,6 +131,10 @@ function WorkoutForm() {
     }
   }
 
+  function handleFinish() {
+    navigate("/workouts");
+  }
+
   return (
     <div>
       <h3>Workout</h3>
@@ -142,17 +146,29 @@ function WorkoutForm() {
         </div>
         <div>
           <label htmlFor="type">Type:</label>
-          <input type="text" id="type" name="type" value={editedWorkout.type} onChange={handleChange}/>
+          <select id="type" name="type" value={editedWorkout.type} onChange={handleChange}>
+            <option value="Running">Running</option>
+            <option value="Cycling">Cycling</option>
+            <option value="Strength Training">Strength Training</option>
+            <option value="HIIT">HIIT</option>
+            <option value="Swimming">Swimming</option>
+            <option value="Walking">Walking</option>
+            <option value="Yoga">Yoga</option>
+            <option value="Hiking">Hiking</option>
+            <option value="Climbing">Climbing</option>
+            <option value="Other">Other</option>
+          </select>
           {errors.type && <p className="error">{errors.type[0]}</p>}
         </div>
         <div>
           <label htmlFor="duration">Duration:</label>
-          <input type="text" id="duration" name="duration" value={editedWorkout.duration} onChange={handleChange}/>
+          <input type="number" id="duration" name="duration" value={editedWorkout.duration} onChange={handleChange}/>
           {errors.duration && <p className="error">{errors.duration[0]}</p>}
         </div>
         <div>
           <label htmlFor="intensity">Intensity:</label>
-          <input type="text" id="intensity" name="intensity" value={editedWorkout.intensity} onChange={handleChange}/>
+          <input type="range" min="1" max="10" id="intensity" name="intensity" value={editedWorkout.intensity} onChange={handleChange}/>
+          <p>value: {editedWorkout.intensity}</p>
           {errors.intensity && <p className="error">{errors.intensity[0]}</p>}
         </div>
         <div>
@@ -203,7 +219,12 @@ function WorkoutForm() {
         ))}
       </div>
       )}
-      <button>Add an exercise</button>
+      <div>
+        <button>Add an exercise</button>
+      </div>
+      <div>
+        <button onClick={handleFinish}>Finish</button>
+      </div>
     </div>
   )
 }
