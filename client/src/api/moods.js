@@ -24,3 +24,15 @@ export async function updateMood(id, content) {
     console.error("Error updating mood:", error)
   }
 }
+
+export async function deleteMood(id) {
+  try {
+    const response = await fetch(`http://127.0.0.1:5555/api/moods/${id}`, {
+      method: "DELETE"
+    })
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error("Error deleting mood:", error)
+  }
+}
