@@ -75,7 +75,6 @@ def update_workout(id):
   db.session.commit()
   return {'message': f'Workout {id} updated successfully'}, 200
   
-
 @app.route('/api/workouts/<id>', methods=["DELETE"])
 def delete_workout(id):
   workout = Workout.query.filter_by(id=id).first()
@@ -126,7 +125,6 @@ def update_workout_exercise(workout_id,id):
 
   db.session.commit()
   return {'message': f'Workout Exercise {id} updated successfully'}, 200
-
 
 @app.route('/api/workouts/<workout_id>/exercises/<id>', methods=["DELETE"])
 def delete_workout_exercise(workout_id,id):
@@ -212,7 +210,6 @@ def add_headers(response):
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
     response.headers.add('Access-Control-Allow-Methods', "GET, POST, PATCH, DELETE")
     return response
-
 
 if __name__ == '__main__':
   app.run(port=5555, debug=True)
