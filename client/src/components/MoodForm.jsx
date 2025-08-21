@@ -19,7 +19,6 @@ function MoodForm() {
     mood['notes'] = ""
   }
 
-  console.log(editedMood)
   const today = new Date().toISOString().split("T")[0]
   
   async function handleSubmit(event) {
@@ -29,10 +28,9 @@ function MoodForm() {
       ...editedMood,
       notes: editedMood.notes === "" ? null : editedMood.notes
     }
-
     //remove id before making the patch request
     const {id, ...updatedMood} = newMood
-
+    //make PATCH request
     const result = await updateMood(id, updatedMood)
 
     if(result.error) {
@@ -43,7 +41,7 @@ function MoodForm() {
 
     if(!result.error) {
       alert("Mood successfully updated")
-
+      //update data in state
       const updatedMoodData = await fetchMoods()
       setMoods(updatedMoodData)
     }

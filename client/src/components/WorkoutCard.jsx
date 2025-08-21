@@ -6,13 +6,15 @@ function WorkoutCard({workout, setWorkouts}) {
 
   const navigate = useNavigate()
 
-  function handleDelete() {
-    deleteWorkout(workout.id)
-    const result = deleteWorkout(workout.id)
+  async function handleDelete() {
+    const result = await deleteWorkout(workout.id)
     if (!result.error) {
       alert("Workout successfully deleted")
+      setWorkouts(prev => prev.filter(w => w.id !== workout.id))
+    } else {
+      alert("Error deleting workout")
     }
-    setWorkouts(prev => prev.filter(w => w.id !== workout.id))
+    
   }
 
   function handleEdit() {
