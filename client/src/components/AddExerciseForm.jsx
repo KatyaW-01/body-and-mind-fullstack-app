@@ -40,7 +40,6 @@ function AddExerciseForm() {
       //clear form so user can add another exercise
       setNewExercise({name: "", sets: "", reps: "", weight: ""})
     }
-
   }
 
   function handleChange(event) {
@@ -51,7 +50,7 @@ function AddExerciseForm() {
     }))
   }
 
-   function handleFinish() {
+  function handleFinish() {
     navigate("/workouts");
   }
 

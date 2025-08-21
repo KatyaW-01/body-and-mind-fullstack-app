@@ -221,7 +221,7 @@ function WorkoutForm() {
         <button onClick={handleAddExercise}>Add an exercise</button>
       </div>
       <div>
-        <button onClick={handleFinish}>Finish</button>
+        <button onClick={handleFinish}>Back to Workouts</button>
       </div>
     </div>
   )

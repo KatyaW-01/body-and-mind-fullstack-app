@@ -39,8 +39,8 @@ function AddWorkoutForm() {
       const updatedWorkouts = await fetchWorkouts()
       setWorkouts(updatedWorkouts)
 
-      //take the user back to the workouts page
-      navigate("/workouts")
+      //clear form incase user wants add another workout
+      setNewWorkout({date: "", type: "", duration: "", intensity: 1, notes: ""})
     }
   }
 
@@ -53,56 +53,66 @@ function AddWorkoutForm() {
     }))
   }
 
+  function handleFinish() {
+    navigate("/workouts");
+  }
+
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="date">Date:</label>
-        <input type="date" id="date" name="date" max={today} value={newWorkout.date} onChange={handleChange}/>
-        {errors.date && <p className="error">{errors.date[0]}</p>}
-      </div>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="date">Date:</label>
+          <input type="date" id="date" name="date" max={today} value={newWorkout.date} onChange={handleChange}/>
+          {errors.date && <p className="error">{errors.date[0]}</p>}
+        </div>
+
+        <div>
+        <label htmlFor="type">Type:</label>
+        <select name="type" id="type" value={newWorkout.type} onChange={handleChange}>
+          <option value="" disabled>Select Type</option>
+          <option value="Running">Running</option>
+          <option value="Cycling">Cycling</option>
+          <option value="Strength Training">Strength Training</option>
+          <option value="HIIT">HIIT</option>
+          <option value="Swimming">Swimming</option>
+          <option value="Walking">Walking</option>
+          <option value="Yoga">Yoga</option>
+          <option value="Hiking">Hiking</option>
+          <option value="Climbing">Climbing</option>
+          <option value="Other">Other</option>
+        </select> 
+        {errors.type && <p className="error">{errors.type[0]}</p>}
+        </div>
+
+        <div>
+        <label htmlFor="duration">Duration (minutes):</label>
+        <input type="number" id="duration" name="duration" value ={newWorkout.duration} onChange={handleChange}/>
+        {errors.duration && <p className="error">{errors.duration[0]}</p>}
+        </div>
+
+        <div>
+        <label htmlFor="intensity">Intensity:</label>
+        <input type="range" min="1" max="10" id="intensity" name="intensity" value={newWorkout.intensity} onChange={handleChange}/>
+        <p>value: {newWorkout.intensity}</p>
+        {errors.intensity && <p className="error">{errors.intensity[0]}</p>}
+        </div>
+
+        <div>
+          <label htmlFor="notes">Notes (optional):</label>
+          <input type="text" id="notes" name="notes" value ={newWorkout.notes} onChange={handleChange}/>
+          {errors.notes && <p className="error">{errors.notes[0]}</p>}
+        </div>
+
+        <div>
+          <button type="submit" value="Submit">Submit</button>
+        </div>
+
+      </form>
 
       <div>
-      <label htmlFor="type">Type:</label>
-      <select name="type" id="type" value={newWorkout.type} onChange={handleChange}>
-        <option value="" disabled>Select Type</option>
-        <option value="Running">Running</option>
-        <option value="Cycling">Cycling</option>
-        <option value="Strength Training">Strength Training</option>
-        <option value="HIIT">HIIT</option>
-        <option value="Swimming">Swimming</option>
-        <option value="Walking">Walking</option>
-        <option value="Yoga">Yoga</option>
-        <option value="Hiking">Hiking</option>
-        <option value="Climbing">Climbing</option>
-        <option value="Other">Other</option>
-      </select> 
-      {errors.type && <p className="error">{errors.type[0]}</p>}
+        <button onClick={handleFinish}>Back to Workouts</button>
       </div>
-
-      <div>
-      <label htmlFor="duration">Duration (minutes):</label>
-      <input type="number" id="duration" name="duration" value ={newWorkout.duration} onChange={handleChange}/>
-      {errors.duration && <p className="error">{errors.duration[0]}</p>}
-      </div>
-
-      <div>
-      <label htmlFor="intensity">Intensity:</label>
-      <input type="range" min="1" max="10" id="intensity" name="intensity" value={newWorkout.intensity} onChange={handleChange}/>
-      <p>value: {newWorkout.intensity}</p>
-      {errors.intensity && <p className="error">{errors.intensity[0]}</p>}
-      </div>
-
-      <div>
-        <label htmlFor="notes">Notes (optional):</label>
-        <input type="text" id="notes" name="notes" value ={newWorkout.notes} onChange={handleChange}/>
-        {errors.notes && <p className="error">{errors.notes[0]}</p>}
-      </div>
-
-      <div>
-        <button type="submit" value="Submit">Submit</button>
-      </div>
-
-    </form>
+    </div>
   )
 }
 
