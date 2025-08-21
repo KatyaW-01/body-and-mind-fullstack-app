@@ -62,8 +62,14 @@ function WorkoutForm() {
     event.preventDefault()
     //get just the one exercise object from the array
     const exercise = editedExercises[index]
+    const fixedExercise = {
+      ...exercise,
+      reps: exercise.reps === "" ? null : exercise.reps,
+      sets: exercise.sets === "" ? null : exercise.sets,
+      weight: exercise.weight === "" ? null : exercise.weight,
+    }
     //remove id key
-    const {id, ...updatedWorkoutExercise} = exercise
+    const {id, ...updatedWorkoutExercise} = fixedExercise
     // Make PATCH request
     const result = await updateWorkoutExercise(workout.id, id, updatedWorkoutExercise)
     if (result.error) {
@@ -102,6 +108,7 @@ function WorkoutForm() {
       return updated
     })
   }
+  console.log(workout.exercises)
 
   async function handleDelete(index, event) {
     const exercise = editedExercises[index]

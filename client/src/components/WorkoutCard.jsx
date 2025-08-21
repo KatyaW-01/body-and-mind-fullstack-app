@@ -17,6 +17,7 @@ function WorkoutCard({workout, setWorkouts}) {
   function handleEdit() {
     navigate("/workouts/workoutForm", {state: {workout}})
   }
+  
 
   return (
     <div>
@@ -29,11 +30,19 @@ function WorkoutCard({workout, setWorkouts}) {
         <div>
           <h4>Exercises:</h4>
           <ul>
-            {workout.exercises.map((exercise) => (
+            {workout.exercises.map((exercise) => {
+              let details = []
+              if (exercise.reps) details.push(`${exercise.reps} reps`)
+              if (exercise.sets) details.push(`${exercise.sets} sets`)
+              let repsSets = details.join(" x ");
+              return (
               <li key={exercise.id}>
-                {exercise.name} - {exercise.reps} reps x {exercise.sets} sets @ {exercise.weight} lbs
+                {exercise.name}
+                {repsSets && ` - ${repsSets}`}
+                {exercise.weight && ` @ ${exercise.weight} lbs`}
               </li>
-            ))}
+              )
+            })}
           </ul>
         </div>
       )}
