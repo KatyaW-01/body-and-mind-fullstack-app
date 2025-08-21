@@ -61,7 +61,6 @@ function MoodForm() {
 
   return (
     <div>
-      <h3>Edit your Mood</h3>
       <form onSubmit={handleSubmit}> 
         <div>
           <label htmlFor="date">Date:</label>

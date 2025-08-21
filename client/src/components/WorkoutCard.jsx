@@ -14,14 +14,12 @@ function WorkoutCard({workout, setWorkouts}) {
     } else {
       alert("Error deleting workout")
     }
-    
   }
 
   function handleEdit() {
     navigate("/workouts/workoutForm", {state: {workout}})
   }
   
-
   return (
     <div>
       <h3>{workout.date}</h3>

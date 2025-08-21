@@ -31,7 +31,7 @@ function Workouts() {
           : ""
         }
       </h1>
-       {location.pathname === "/workouts" ?
+      {location.pathname === "/workouts" ?
         <button onClick={handleLog}>Log a Workout</button> : ""
       }
       <Outlet context = {{workouts, setWorkouts}} />
