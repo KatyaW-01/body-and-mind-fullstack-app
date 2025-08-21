@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import {useState} from "react"
 import { updateWorkout, fetchWorkouts } from "../api/workouts"
 //import { fetchWorkouts } from "../api/workouts"
-import {updateWorkoutExercise} from "../api/workoutExercises"
+import {updateWorkoutExercise, deleteWorkoutExercise} from "../api/workoutExercises"
 
 function WorkoutForm() {
   const location = useLocation()
@@ -116,6 +116,21 @@ function WorkoutForm() {
     })
   }
 
+  async function handleDelete(index, event) {
+    const exercise = editedExercises[index]
+    const id = exercise.id
+    //make DELETE request
+    const result = await deleteWorkoutExercise(workout.id, id)
+    //if no error, notify the user and update state
+    if (!result.error) {
+      alert("Exercise successfully deleted")
+      const updatedWorkouts = await fetchWorkouts()
+      setWorkouts(updatedWorkouts)
+    } else {
+      console.log(result.error)
+    }
+  }
+
   return (
     <div>
       <h3>Workout</h3>
@@ -183,7 +198,7 @@ function WorkoutForm() {
                 <button type="submit" value="Submit">Submit Edit</button>
               </div>
             </form>
-            <button>Delete Exercise</button>
+            <button onClick={(event) => handleDelete(index, event)}>Delete Exercise</button>
           </div>
         ))}
       </div>
