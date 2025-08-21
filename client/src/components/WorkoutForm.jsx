@@ -18,7 +18,7 @@ function WorkoutForm() {
 
   const [errors, setErrors] = useState({})
 
-  const [exerciseErrors, setExerciseErrors] = useState({})
+  const [exerciseErrors, setExerciseErrors] = useState([])
 
   const {setWorkouts} = useOutletContext()
 
@@ -73,7 +73,9 @@ function WorkoutForm() {
     // Make PATCH request
     const result = await updateWorkoutExercise(workout.id, id, updatedWorkoutExercise)
     if (result.error) {
-      setExerciseErrors(result.error)
+      const newErrors = [...exerciseErrors]
+      newErrors[index] = result.error
+      setExerciseErrors(newErrors)
       alert("Error updating workout exercise, please try again!")
       return
     }
@@ -132,7 +134,7 @@ function WorkoutForm() {
   function handleAddExercise() {
     navigate("/workouts/addExercise", {state: {workout}})
   }
-
+  console.log(exerciseErrors)
   return (
     <div>
       <h3>Workout</h3>
@@ -182,10 +184,6 @@ function WorkoutForm() {
       {workout.exercises.length > 0 && (
       <div>
         <h3>Exercises</h3>
-        {exerciseErrors.name && <p className="error">{exerciseErrors.name[0]}</p>}
-        {exerciseErrors.sets && <p className="error">{exerciseErrors.sets[0]}</p>}
-        {exerciseErrors.reps && <p className="error">{exerciseErrors.reps[0]}</p>}
-        {exerciseErrors.weight && <p className="error">{exerciseErrors.weight[0]}</p>}
         {workout.exercises.map((exercise, index) => (
           <div key={exercise.id}>
             <div>
@@ -195,18 +193,22 @@ function WorkoutForm() {
               <div>
                 <label htmlFor="name" >Name:</label>
                 <input type="text" id="name" name="name" value={editedExercises[index].name || ""} onChange={(event) => handleExerciseChange(index,event)} />
+                {exerciseErrors[index]?.name && <p className="error">{exerciseErrors[index].name[0]}</p>}
               </div>
               <div>
                 <label htmlFor="sets" >Sets:</label>
                 <input type="number" id="sets" name="sets" value={editedExercises[index].sets || ""} onChange={(event) => handleExerciseChange(index,event)} />
+                {exerciseErrors[index]?.sets && <p className="error">{exerciseErrors[index].sets[0]}</p>}
               </div>
               <div>
                 <label htmlFor="reps" >Reps:</label>
                 <input type="number" id="reps" name="reps" value={editedExercises[index].reps || ""} onChange={(event) => handleExerciseChange(index,event)} />
+                {exerciseErrors[index]?.reps && <p className="error">{exerciseErrors[index].reps[0]}</p>}
               </div>
               <div>
                 <label htmlFor="weight" >Weight:</label>
                 <input type="number" id="weight" name="weight" value={editedExercises[index].weight || ""} onChange={(event) => handleExerciseChange(index,event)} />
+                {exerciseErrors[index]?.weight && <p className="error">{exerciseErrors[index].weight[0]}</p>}
               </div>
               <div>
                 <button type="submit" value="Submit">Submit Edit</button>
