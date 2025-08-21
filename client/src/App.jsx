@@ -8,6 +8,7 @@ import Analytics from "./pages/Analytics"
 import WorkoutForm from "./components/WorkoutForm"
 import AddWorkoutForm from "./components/AddWorkoutForm"
 import MoodForm from "./components/MoodForm"
+import AddMoodForm from "./components/AddMoodForm"
 import WorkoutList from "./components/WorkoutList"
 import MoodList from "./components/MoodList"
 import AddExerciseForm from "./components/AddExerciseForm"
@@ -25,6 +26,7 @@ function App() {
       <Route path="/moods" element={ <MoodTracker /> } >
         <Route index element={ <MoodList /> }/>
         <Route path="moodForm" element={<MoodForm />} />
+        <Route path="addMood" element={<AddMoodForm /> } />
       </Route>
       <Route path="/analytics" element={ <Analytics />} />
     </Routes>
