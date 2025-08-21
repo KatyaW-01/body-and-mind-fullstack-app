@@ -1,8 +1,9 @@
 import React from "react"
 import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import {useState} from "react"
-import { updateWorkout } from "../api/workouts"
-import { fetchWorkouts } from "../api/workouts"
+import { updateWorkout, fetchWorkouts } from "../api/workouts"
+//import { fetchWorkouts } from "../api/workouts"
+import {updateWorkoutExercise} from "../api/workoutExercises"
 
 function WorkoutForm() {
   const location = useLocation()
@@ -17,6 +18,8 @@ function WorkoutForm() {
   const [editedExercises, setEditedExercises] = useState(workout.exercises || [])
 
   const [errors, setErrors] = useState({})
+
+  const [exerciseErrors, setExerciseErrors] = useState({})
 
   const {setWorkouts} = useOutletContext()
 
@@ -61,6 +64,33 @@ function WorkoutForm() {
     }));
   }
 
+  async function handleExerciseSubmit(index, event) {
+    //prevent page reload
+    event.preventDefault()
+
+    //get just the one exercise object from the array
+    const exercise = editedExercises[index]
+    //remove id key
+    const {id, ...updatedWorkoutExercise} = exercise
+
+    // Make PATCH request
+    const result = await updateWorkoutExercise(workout.id, id, updatedWorkoutExercise)
+
+    if (result.error) {
+      setExerciseErrors(result.error)
+      alert("Error updating workout exercise, please try again!")
+      return
+    }
+
+    if (!result.error) {
+      alert("Exercise successfully updated!")
+
+      const updatedWorkouts = await fetchWorkouts()
+      setWorkouts(updatedWorkouts)
+    }
+
+  }
+
   function handleExerciseChange(index,event) {
     const {name, value} = event.target
 
@@ -85,7 +115,7 @@ function WorkoutForm() {
       return updated
     })
   }
-  console.log(editedExercises)
+
   return (
     <div>
       <h3>Workout</h3>
@@ -123,12 +153,16 @@ function WorkoutForm() {
       {workout.exercises.length > 0 && (
       <div>
         <h3>Exercises</h3>
+        {exerciseErrors.name && <p className="error">{exerciseErrors.name[0]}</p>}
+        {exerciseErrors.sets && <p className="error">{exerciseErrors.sets[0]}</p>}
+        {exerciseErrors.reps && <p className="error">{exerciseErrors.reps[0]}</p>}
+        {exerciseErrors.weight && <p className="error">{exerciseErrors.weight[0]}</p>}
         {workout.exercises.map((exercise, index) => (
           <div key={exercise.id}>
             <div>
               <h4>{index + 1}.</h4>
             </div>
-            <form>
+            <form onSubmit={(event) => handleExerciseSubmit(index, event)}>
               <div>
                 <label htmlFor="name" >Name:</label>
                 <input type="text" id="name" name="name" value={editedExercises[index].name || ""} onChange={(event) => handleExerciseChange(index,event)} />

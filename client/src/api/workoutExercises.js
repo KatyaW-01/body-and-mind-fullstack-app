@@ -1,6 +1,6 @@
 export async function updateWorkoutExercise(workout_id, id, content) {
   try {
-    const response = await fetch(`/api/workouts/${workout_id}/exercises/${id}`, {
+    const response = await fetch(`http://127.0.0.1:5555/api/workouts/${workout_id}/exercises/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json"
