@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from dotenv import load_dotenv
 from models import db, Workout, WorkoutSchema, WorkoutExercise, WorkoutExerciseSchema, MoodLog, MoodLogSchema, Weather, WeatherSchema
+from marshmallow import ValidationError
 
 load_dotenv()
 
@@ -25,15 +26,15 @@ def get_workouts():
 @app.route('/api/workouts', methods=["POST"])
 def create_workout():
   data = request.get_json()
-  workout_data = WorkoutSchema().load(data)
-  workout = Workout(date=workout_data.get('date'), type=workout_data["type"], duration=workout_data["duration"], intensity=workout_data["intensity"], notes = workout_data.get('notes'))
-  if workout:
+  try:
+    workout_data = WorkoutSchema().load(data)
+    workout = Workout(date=workout_data.get('date'), type=workout_data["type"], duration=workout_data["duration"], intensity=workout_data["intensity"], notes = workout_data.get('notes'))
     db.session.add(workout)
     db.session.commit()
     result = WorkoutSchema().dump(workout)
     return make_response(result, 201)
-  else:
-    return make_response({"error": "workout could not be created. Please try again"},400)
+  except ValidationError as err:
+    return {'error': err.messages}, 400
 
 @app.route('/api/workouts/<id>', methods=["GET"])
 def get_one_workout(id):
@@ -49,24 +50,31 @@ def get_one_workout(id):
 @app.route('/api/workouts/<id>', methods=["PATCH"])
 def update_workout(id):
   workout = Workout.query.filter_by(id=id).first()
-  data = request.get_json()
-  if workout:
-    if 'date' in data:
-      workout.date = data['date']
-    if 'type' in data:
-      workout.type = data['type']
-    if 'duration' in data:
-      workout.duration = data['duration']
-    if 'intensity' in data:
-      workout.intensity = data['intensity']
-    if 'notes' in data:
-      workout.notes = data['notes']
-
-    db.session.commit()
-    return {'message': f'Workout {id} updated successfully'}, 200
-  else:
+  if not workout:
     return {'error': f'Workout {id} not found'}, 404
+  
+  data = request.get_json()
 
+  schema = WorkoutSchema(partial=True)
+
+  try:
+    validated_data = schema.load(data)
+  except ValidationError as err:
+    return {'error': err.messages}, 400
+  if 'date' in validated_data:
+    workout.date = validated_data['date']
+  if 'type' in validated_data:
+    workout.type = validated_data['type']
+  if 'duration' in validated_data:
+    workout.duration = validated_data['duration']
+  if 'intensity' in validated_data:
+    workout.intensity = validated_data['intensity']
+  if 'notes' in validated_data:
+    workout.notes = validated_data['notes']
+
+  db.session.commit()
+  return {'message': f'Workout {id} updated successfully'}, 200
+  
 @app.route('/api/workouts/<id>', methods=["DELETE"])
 def delete_workout(id):
   workout = Workout.query.filter_by(id=id).first()
@@ -84,34 +92,39 @@ def delete_workout(id):
 @app.route('/api/workouts/<workout_id>/exercises', methods=["POST"])
 def create_workout_exercise(workout_id):
   data = request.get_json()
-  exercise_data = WorkoutExerciseSchema().load(data)
-  exercise = WorkoutExercise(workout_id=workout_id,name=exercise_data["name"],sets=exercise_data.get('sets'),reps=exercise_data.get('reps'),weight=exercise_data.get('weight'))
-  if exercise:
+  try:
+    exercise_data = WorkoutExerciseSchema().load(data)
+    exercise = WorkoutExercise(workout_id=workout_id,name=exercise_data["name"],sets=exercise_data.get('sets'),reps=exercise_data.get('reps'),weight=exercise_data.get('weight'))
     db.session.add(exercise)
     db.session.commit()
     result = WorkoutExerciseSchema().dump(exercise)
     return make_response(result, 201)
-  else:
-    return make_response({"error": "workout exercise could not be created. Please try again"},400)
+  except ValidationError as err:
+    return {'error': err.messages}, 400
 
 @app.route('/api/workouts/<workout_id>/exercises/<id>', methods=["PATCH"])
 def update_workout_exercise(workout_id,id):
   workout_exercise = WorkoutExercise.query.filter_by(id=id, workout_id=workout_id).first()
-  data = request.get_json()
-  if workout_exercise:
-    if 'name' in data:
-      workout_exercise.name = data['name']
-    if 'sets' in data:
-      workout_exercise.sets = data['sets']
-    if 'reps' in data:
-      workout_exercise.reps = data['reps']
-    if 'weight' in data:
-      workout_exercise.weight = data['weight']
-
-    db.session.commit()
-    return {'message': f'Workout Exercise {id} updated successfully'}, 200
-  else:
+  if not workout_exercise:
     return {'error': f'Workout Exercise {id} not found'}, 404
+  
+  data = request.get_json()
+  schema = WorkoutExerciseSchema(partial=True)
+  try:
+    validated_data = schema.load(data)
+  except ValidationError as err:
+    return {'error': err.messages}, 400
+  if 'name' in validated_data:
+    workout_exercise.name = validated_data['name']
+  if 'sets' in validated_data:
+    workout_exercise.sets = validated_data['sets']
+  if 'reps' in validated_data:
+    workout_exercise.reps = validated_data['reps']
+  if 'weight' in validated_data:
+    workout_exercise.weight = validated_data['weight']
+
+  db.session.commit()
+  return {'message': f'Workout Exercise {id} updated successfully'}, 200
 
 @app.route('/api/workouts/<workout_id>/exercises/<id>', methods=["DELETE"])
 def delete_workout_exercise(workout_id,id):
@@ -190,6 +203,13 @@ def delete_mood(id):
   return make_response(body,status)
 
 #weather routes
+
+@app.after_request
+def add_headers(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+    response.headers.add('Access-Control-Allow-Methods', "GET, POST, PATCH, DELETE")
+    return response
 
 if __name__ == '__main__':
   app.run(port=5555, debug=True)

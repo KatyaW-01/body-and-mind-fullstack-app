@@ -35,9 +35,9 @@ class WorkoutSchema(Schema):
   date = fields.Date(required=False)
   type = fields.String(required=True, validate=validate.OneOf(allowed_workout_types))
   #duration is in minutes
-  duration = fields.Integer(required=True, validate=validate.Range(min=1,max=500))
-  intensity = fields.Integer(required=True,validate=validate.Range(min=1,max=10, error="Intensity must be an integer between 1 and 10"))
-  notes = fields.String(required=False,validate = validate.Length(min=0, max=300, error="Notes cannot exceed 300 characters"))
+  duration = fields.Integer(required=True, validate=validate.Range(min=1,max=500, error="duration must be between 1 and 500 minutes"))
+  intensity = fields.Integer(required=True, validate=validate.Range(min=1,max=10, error="Intensity must be an integer between 1 and 10"))
+  notes = fields.String(required=False, allow_none=True, validate = validate.Length(min=0, max=300, error="Notes cannot exceed 300 characters"))
 
   exercises = fields.Nested(lambda: WorkoutExerciseSchema(exclude=("workout",)),many=True)
 
@@ -61,9 +61,9 @@ class WorkoutExercise(db.Model):
 class WorkoutExerciseSchema(Schema):
   id = fields.Int(dump_only=True)
   name = fields.String(required=True, validate=validate.Length(min=1, max=100))
-  sets = fields.Integer(validate=validate.Range(min=0,max=50))
-  reps = fields.Integer(validate=validate.Range(min=0,max=200))
-  weight = fields.Float(validate=validate.Range(min=0))
+  sets = fields.Integer(allow_none=True, validate=validate.Range(min=0,max=50, error="Sets cannot be greater than 50"))
+  reps = fields.Integer(allow_none=True, validate=validate.Range(min=0,max=200, error="reps cannot be greater than 200"))
+  weight = fields.Float(allow_none=True, validate=validate.Range(min=0))
 
   workout = fields.Nested(lambda: WorkoutSchema(exclude=("exercises",)))
 
@@ -81,7 +81,7 @@ class MoodLogSchema(Schema):
   date = fields.Date(required=False)
   rating = fields.Integer(required=True, validate=validate.Range(min=1, max=10, error="Mood rating must be an integer between 1 and 10"))
   mood = fields.String(validate=validate.OneOf(["happy","sad","angry","anxious","calm", "excited", "tired"]))
-  notes = fields.String(validate = validate.Length(min=0, max=300, error="Notes cannot exceed 300 characters"))
+  notes = fields.String(allow_none=True, validate = validate.Length(min=0, max=300, error="Notes cannot exceed 300 characters"))
 
   @validates("date")
   def validates_date(self, value, **kwargs):
