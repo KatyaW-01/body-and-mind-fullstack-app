@@ -93,15 +93,15 @@ def delete_workout(id):
 @app.route('/api/workouts/<workout_id>/exercises', methods=["POST"])
 def create_workout_exercise(workout_id):
   data = request.get_json()
-  exercise_data = WorkoutExerciseSchema().load(data)
-  exercise = WorkoutExercise(workout_id=workout_id,name=exercise_data["name"],sets=exercise_data.get('sets'),reps=exercise_data.get('reps'),weight=exercise_data.get('weight'))
-  if exercise:
+  try:
+    exercise_data = WorkoutExerciseSchema().load(data)
+    exercise = WorkoutExercise(workout_id=workout_id,name=exercise_data["name"],sets=exercise_data.get('sets'),reps=exercise_data.get('reps'),weight=exercise_data.get('weight'))
     db.session.add(exercise)
     db.session.commit()
     result = WorkoutExerciseSchema().dump(exercise)
     return make_response(result, 201)
-  else:
-    return make_response({"error": "workout exercise could not be created. Please try again"},400)
+  except ValidationError as err:
+    return {'error': err.messages}, 400
 
 @app.route('/api/workouts/<workout_id>/exercises/<id>', methods=["PATCH"])
 def update_workout_exercise(workout_id,id):
