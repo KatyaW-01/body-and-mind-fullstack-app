@@ -61,9 +61,9 @@ class WorkoutExercise(db.Model):
 class WorkoutExerciseSchema(Schema):
   id = fields.Int(dump_only=True)
   name = fields.String(required=True, validate=validate.Length(min=1, max=100))
-  sets = fields.Integer(validate=validate.Range(min=0,max=50, error="Sets cannot be greater than 50"))
-  reps = fields.Integer(validate=validate.Range(min=0,max=200, error="reps cannot be greater than 200"))
-  weight = fields.Float(validate=validate.Range(min=0))
+  sets = fields.Integer(allow_none=True, validate=validate.Range(min=0,max=50, error="Sets cannot be greater than 50"))
+  reps = fields.Integer(allow_none=True, validate=validate.Range(min=0,max=200, error="reps cannot be greater than 200"))
+  weight = fields.Float(allow_none=True, validate=validate.Range(min=0))
 
   workout = fields.Nested(lambda: WorkoutSchema(exclude=("exercises",)))
 
