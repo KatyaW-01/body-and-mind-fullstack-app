@@ -149,15 +149,15 @@ def get_moods():
 @app.route('/api/moods', methods=["POST"])
 def create_moods():
   data = request.get_json()
-  mood_data = MoodLogSchema().load(data)
-  mood = MoodLog(date=mood_data['date'], rating=mood_data['rating'], mood=mood_data['mood'], notes=mood_data.get('notes'))
-  if mood:
+  try:
+    mood_data = MoodLogSchema().load(data)
+    mood = MoodLog(date=mood_data['date'], rating=mood_data['rating'], mood=mood_data['mood'], notes=mood_data.get('notes'))
     db.session.add(mood)
     db.session.commit()
     result = MoodLogSchema().dump(mood)
     return make_response(result, 201)
-  else:
-    return make_response({"error": "mood could not be created. Please try again"},400)
+  except ValidationError as err:
+    return {'error': err.messages}, 400
 
 @app.route('/api/moods/<id>', methods=["GET"])
 def get_one_mood(id):
@@ -173,21 +173,27 @@ def get_one_mood(id):
 @app.route('/api/moods/<id>', methods=["PATCH"])
 def update_mood(id):
   mood = MoodLog.query.filter_by(id=id).first()
-  data = request.get_json()
-  if mood:
-    if 'date' in data:
-      mood.date = data['date']
-    if 'rating' in data:
-      mood.rating = data['rating']
-    if 'mood' in data:
-      mood.mood = data['mood']
-    if 'notes' in data:
-      mood.notes = data['notes']
-
-    db.session.commit()
-    return {'message': f'Mood {id} updated successfully'}, 200
-  else:
+  if not mood:
     return {'error': f'Mood {id} not found'}, 404
+  
+  data = request.get_json()
+  schema = MoodLogSchema(partial=True)
+  try:
+    validated_data = schema.load(data)
+  except ValidationError as err:
+    return {'error': err.messages}, 400
+  
+  if 'date' in validated_data:
+    mood.date = validated_data['date']
+  if 'rating' in validated_data:
+    mood.rating = validated_data['rating']
+  if 'mood' in validated_data:
+    mood.mood = validated_data['mood']
+  if 'notes' in validated_data:
+    mood.notes = validated_data['notes']
+
+  db.session.commit()
+  return {'message': f'Mood {id} updated successfully'}, 200
 
 @app.route('/api/moods/<id>', methods=["DELETE"])
 def delete_mood(id):
