@@ -10,6 +10,7 @@ import AddWorkoutForm from "./components/AddWorkoutForm"
 import MoodForm from "./components/MoodForm"
 import WorkoutList from "./components/WorkoutList"
 import MoodList from "./components/MoodList"
+import AddExerciseForm from "./components/AddExerciseForm"
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route index element={ <WorkoutList /> }/>
         <Route path="workoutForm" element={< WorkoutForm />} />
         <Route path="addWorkoutForm" element={< AddWorkoutForm />} />
+        <Route path="addExercise"  element={ <AddExerciseForm /> }/>
       </Route>
       <Route path="/moods" element={ <MoodTracker /> } >
         <Route index element={ <MoodList /> }/>
