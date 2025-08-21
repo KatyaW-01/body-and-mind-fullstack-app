@@ -14,6 +14,7 @@ function MoodTracker() {
   return (
     <div>
       <NavBar />
+      <button>Log a Mood</button>
       <Outlet context = {{moods, setMoods}} />
     </div>
   )

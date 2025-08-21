@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom"
 
 function WorkoutCard({workout, setWorkouts}) {
 
+  const navigate = useNavigate()
+
   function handleDelete() {
     deleteWorkout(workout.id)
     const result = deleteWorkout(workout.id)
@@ -12,7 +14,6 @@ function WorkoutCard({workout, setWorkouts}) {
     }
     setWorkouts(prev => prev.filter(w => w.id !== workout.id))
   }
-  const navigate = useNavigate()
 
   function handleEdit() {
     navigate("/workouts/workoutForm", {state: {workout}})
