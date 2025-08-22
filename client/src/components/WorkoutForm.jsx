@@ -24,7 +24,7 @@ function WorkoutForm() {
 
   const navigate = useNavigate()
 
-  const today = new Date().toISOString().split("T")[0];
+  const today = new Date().toLocaleDateString("en-CA")
 
   async function handleSubmit(event) {
     //prevent page reload
