@@ -12,8 +12,6 @@ function AddWorkoutForm() {
 
   const navigate = useNavigate()
 
-  // new Date() is formated as Mon Aug 19 2025 14:35:00 GMT-0600 (Central Standard Time)
-  // need to transform it to "2025-08-19"
   const today = new Date().toLocaleDateString("en-CA")
 
   async function handleSubmit(event) {

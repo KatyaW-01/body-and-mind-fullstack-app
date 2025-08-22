@@ -1,6 +1,15 @@
 import React from "react"
 import NavBar from "../components/NavBar"
-
+import {
+  ComposedChart,
+  Line,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend
+} from "recharts"
 
 function Analytics() {
   return(
