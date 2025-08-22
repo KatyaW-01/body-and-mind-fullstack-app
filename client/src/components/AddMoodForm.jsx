@@ -80,7 +80,7 @@ function AddMoodForm() {
           {errors.rating && <p className="error">{errors.rating[0]}</p>}
         </div>
         <div>
-          <label htmlFor="notes">Notes:</label>
+          <label htmlFor="notes">Notes (optional):</label>
           <input type="text" id="notes" name="notes" value={newMood.notes} onChange={handleChange}/>
           {errors.notes && <p className="error">{errors.notes[0]}</p>}
         </div>
