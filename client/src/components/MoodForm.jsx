@@ -19,7 +19,7 @@ function MoodForm() {
     mood['notes'] = ""
   }
 
-  const today = new Date().toISOString().split("T")[0]
+  const today = new Date().toLocaleDateString("en-CA")
   
   async function handleSubmit(event) {
     event.preventDefault()

@@ -14,7 +14,7 @@ function AddWorkoutForm() {
 
   // new Date() is formated as Mon Aug 19 2025 14:35:00 GMT-0600 (Central Standard Time)
   // need to transform it to "2025-08-19"
-  const today = new Date().toISOString().split("T")[0]
+  const today = new Date().toLocaleDateString("en-CA")
 
   async function handleSubmit(event) {
     event.preventDefault()
@@ -39,8 +39,9 @@ function AddWorkoutForm() {
       const updatedWorkouts = await fetchWorkouts()
       setWorkouts(updatedWorkouts)
 
-      //clear form incase user wants add another workout
+      //clear form in case user wants add another workout
       setNewWorkout({date: "", type: "", duration: "", intensity: 1, notes: ""})
+      setErrors({})
     }
   }
 
