@@ -38,9 +38,39 @@ function Analytics() {
     }
   })
 
+  const moodColors = {
+    happy: "#FFD700",
+    calm: "#32CD32",
+    excited: "#FF69B4",
+    sad: "#1E90FF",
+    angry: "#FF4500",
+    anxious: "#800080",
+    tired: "#A9A9A9",
+  };
+
+  //cx is x coordinate, cy is y coordinate, payload is the whole object from the data at that point
+  //if you wanted value from props it would be moodRating 
+  //r is radius
+  const CustomDot = (props) => {
+    const {cx, cy, payload} = props
+    if (!payload.mood) return null
+    const color = moodColors[payload.mood] || "black"
+    return <circle cx={cx} cy={cy} r={6} fill={color} stroke="none" />
+  }
+
   return(
     <div>
       <NavBar />
+      <h1>View your Data</h1>
+      <ComposedChart width={1000} height={700} data={data}>
+        <CartesianGrid />
+        <XAxis dataKey="date"/>
+        <YAxis domain={[0, 10]}/>  
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="workoutIntensity" barSize={40} fill="#8B0000" fillOpacity={0.7} name="Workout Intensity"/>
+        <Line type="monotone" dataKey="moodRating" stroke="grey" strokeWidth={3}  dot={<CustomDot />} connectNulls={true} name="Mood"/>
+      </ComposedChart>
     </div>
   )
 }
