@@ -69,7 +69,7 @@ function Analytics() {
   return(
     <div>
       <NavBar />
-      <h1 className="analytics-header">View your Data</h1>
+      <h1 className="analytics-header">Your Workout and Mood Data</h1>
       <div className="graph-and-legend">
         <div className="graph"> 
           <ComposedChart width={1000} height={700} data={data}>
@@ -83,13 +83,34 @@ function Analytics() {
           </ComposedChart>
         </div>
         <div className="legend">
-          <p>Yellow: happy</p>
-          <p>Pink: excited</p>
-          <p>Green: calm</p>
-          <p>Grey: tired</p>
-          <p>Purple: anxious</p>
-          <p>Blue: sad</p>
-          <p>Red: angry</p>
+          <div>
+            <span class="color-box" style={{ backgroundColor: "#FF69B4" }}></span>
+            <span>Excited</span>
+          </div>
+          <div>
+            <span class="color-box" style={{ backgroundColor: "#FFD700" }}></span>
+            <span>Happy</span>
+          </div>
+          <div>
+            <span class="color-box" style={{ backgroundColor: "#32CD32" }}></span>
+            <span>Calm</span>
+          </div>
+          <div>
+            <span class="color-box" style={{ backgroundColor: "#A9A9A9" }}></span>
+            <span>Tired</span>
+          </div>
+          <div>
+            <span class="color-box" style={{ backgroundColor: "#800080" }}></span>
+            <span>Anxious</span>
+          </div>
+          <div>
+            <span class="color-box" style={{ backgroundColor: "#1E90FF" }}></span>
+            <span>Sad</span>
+          </div>
+          <div>
+            <span class="color-box" style={{ backgroundColor: "#FF4500" }}></span>
+            <span>Angry</span>
+          </div>
         </div>
       </div>
     </div>

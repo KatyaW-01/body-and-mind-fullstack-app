@@ -96,3 +96,25 @@ body {
   border-radius: 5px;
   padding: 5px
 }
+
+.graph-and-legend {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 40px
+}
+
+.legend {
+  border: 2px solid grey;  
+  padding: 10px;
+  align-self: center;   
+}
+
+.color-box {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-right: 8px;
+  border: 1px solid #000; 
+}
+
