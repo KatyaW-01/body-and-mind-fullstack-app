@@ -145,3 +145,59 @@ body {
 .mood-card.angry {
   background-color: #FF450040;
 }
+
+.home h1,
+.home p {
+  text-align: center;
+}
+
+.home p {
+  font-size: 25px;
+}
+
+.home-workouts-and-moods {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  justify-items: center; 
+  gap: 40px
+}
+
+.home-workouts {
+  text-align: center;
+  border: 3px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  width: 200px;
+  height: 175px
+}
+
+.home-moods {
+  text-align: center;
+  border: 3px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  width: 200px;
+  height: 175px
+}
+
+.home-workouts h3,
+.home-moods h3 {
+  font-size: 30px;
+}
+
+.home-workouts-and-moods button {
+  font-size: 20px;
+  border-radius: 5px;
+}
+
+.viewData-button {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;  
+}
+
+.viewData-button button {
+  padding: 5px;
+  border-radius: 5px;
+}
