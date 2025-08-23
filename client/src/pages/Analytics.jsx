@@ -69,7 +69,7 @@ function Analytics() {
   return(
     <div>
       <NavBar />
-      <h1>View your Data</h1>
+      <h1 className="analytics-header">View your Data</h1>
       <div className="graph-and-legend">
         <div className="graph"> 
           <ComposedChart width={1000} height={700} data={data}>

@@ -21,7 +21,7 @@ function MoodTracker() {
   return (
     <div>
       <NavBar />
-      <h1>
+      <h1 className="mood-headers">
         {location.pathname === "/moods"
           ? "Moods"
           : location.pathname === "/moods/moodForm"
@@ -32,7 +32,9 @@ function MoodTracker() {
         }
       </h1>
       {location.pathname === "/moods" ?
-        <button onClick={handleLog} >Log a Mood</button> : ""
+        <div className="add-mood-container"> 
+          <button onClick={handleLog} className="add-mood-button">Log a Mood</button> 
+        </div> : ""
       }
       <Outlet context = {{moods, setMoods}} />
     </div>

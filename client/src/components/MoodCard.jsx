@@ -20,14 +20,14 @@ function MoodCard({mood, setMoods}) {
   }
 
   return (
-    <div>
+    <div className="mood-card">
       <h3>{mood.date}</h3>
       <p>Mood: {mood.mood}</p>
       <p>Rating: {mood.rating}/10</p>
       {mood.notes ? <p>Notes: {mood.notes}</p> : ""}
-      <div>
+      <div className="mood-buttons">
         <button onClick={handleEdit}>Edit</button>
-        <button onClick={handleDelete}>Delete</button>
+        <button onClick={handleDelete}>X Delete</button>
       </div>
     </div>
   )

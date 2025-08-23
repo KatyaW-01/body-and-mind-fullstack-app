@@ -2,7 +2,9 @@ body {
   background-color: #f5f5f5;
 }
 
-.workout-headers {
+.workout-headers,
+.mood-headers,
+.analytics-header {
   text-align: center;
 }
 
@@ -25,13 +27,14 @@ body {
 }
 
 .workout-card h3,
-.workout-card h4 {
-  text-align: center;
-}
-
+.workout-card h4,
 .workout-card p {
   text-align: center;
 }
+
+/* .workout-card p {
+  text-align: center;
+} */
 
 .workout-card ul {
   display: flex;
@@ -39,7 +42,8 @@ body {
   align-items: center;
 }
 
-.workout-buttons {
+.workout-buttons,
+.mood-buttons {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -59,6 +63,36 @@ body {
 }
 
 .add-workout-button {
+  border-radius: 5px;
+  padding: 5px
+}
+
+.mood-div {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 20px;
+  box-sizing: border-box;
+  justify-content: center;
+  justify-items: center; 
+}
+
+.mood-card {
+  width: 400px;
+  padding: 20px;
+  margin: 20px;
+  border: 2px solid grey;
+  background: #f9fafb;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.add-mood-container{
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;  
+}
+
+.add-mood-button {
   border-radius: 5px;
   padding: 5px
 }
