@@ -21,7 +21,7 @@ function Workouts() {
   return (
     <div>
       <NavBar />
-      <h1>
+      <h1 className="workout-headers">
         {location.pathname === "/workouts"
           ? "Workouts"
           : location.pathname === "/workouts/workoutForm"

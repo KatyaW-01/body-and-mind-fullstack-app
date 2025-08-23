@@ -10,7 +10,7 @@ function WorkoutList() {
   }
 
   return (
-    <div>
+    <div className="workout-div">
       {
         workouts.map((workout) => (
           <div key={workout.id}>

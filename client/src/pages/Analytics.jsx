@@ -75,7 +75,7 @@ function Analytics() {
           <ComposedChart width={1000} height={700} data={data}>
             <CartesianGrid />
             <XAxis dataKey="date"/>
-            <YAxis domain={[0, 10]}/>  
+            <YAxis domain={[0, 11]}/>  
             <Tooltip />
             <Legend />
             <Bar dataKey="workoutIntensity" barSize={40} fill="#000080" fillOpacity={0.7} name="Workout Intensity"/>

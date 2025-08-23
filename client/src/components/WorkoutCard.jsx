@@ -21,7 +21,7 @@ function WorkoutCard({workout, setWorkouts}) {
   }
   
   return (
-    <div>
+    <div className="workout-card">
       <h3>{workout.date}</h3>
       <p>Type: {workout.type}</p>
       <p>Duration: {workout.duration}</p>
