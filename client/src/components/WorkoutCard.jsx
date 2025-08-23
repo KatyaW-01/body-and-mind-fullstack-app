@@ -47,9 +47,9 @@ function WorkoutCard({workout, setWorkouts}) {
           </ul>
         </div>
       )}
-      <div>
+      <div className="workout-buttons">
         <button onClick={handleEdit} >Edit</button>
-        <button onClick={handleDelete}>Delete</button>
+        <button onClick={handleDelete}>X Delete</button>
       </div>
     </div>
   )
