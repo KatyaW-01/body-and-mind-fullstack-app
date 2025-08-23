@@ -28,15 +28,23 @@ function Analytics() {
     workoutByDate[workout.date] = workout.intensity
   })
 
-  const data = sortedMoods.map((mood) => {
-    return {
-      date: mood.date, 
-      moodRating: mood.rating, 
-      mood: mood.mood, 
-      //if workoutByDate has a value for the date otherwise null
-      workoutIntensity: workoutByDate[mood.date] ?? null
-    }
+  const moodByDate = {}
+  sortedMoods.forEach((mood) => {
+    moodByDate[mood.date] = {rating: mood.rating, mood: mood.mood}
   })
+
+  //get an array of all the dates
+  const dates = Array.from(new Set([
+    ...sortedMoods.map(mood => mood.date),
+    ...sortedWorkouts.map(workout => workout.date)
+  ])).sort()
+
+  const data = dates.map((date) => ({
+    date: date,
+    moodRating: moodByDate[date]?.rating ?? null,
+    mood: moodByDate[date]?.mood ?? null,
+    workoutIntensity: workoutByDate[date] ?? null
+  }))
 
   const moodColors = {
     happy: "#FFD700",
@@ -50,27 +58,40 @@ function Analytics() {
 
   //cx is x coordinate, cy is y coordinate, payload is the whole object from the data at that point
   //if you wanted value from props it would be moodRating 
-  //r is radius
   const CustomDot = (props) => {
     const {cx, cy, payload} = props
     if (!payload.mood) return null
     const color = moodColors[payload.mood] || "black"
     return <circle cx={cx} cy={cy} r={6} fill={color} stroke="none" />
+    //r is radius
   }
 
   return(
     <div>
       <NavBar />
       <h1>View your Data</h1>
-      <ComposedChart width={1000} height={700} data={data}>
-        <CartesianGrid />
-        <XAxis dataKey="date"/>
-        <YAxis domain={[0, 10]}/>  
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="workoutIntensity" barSize={40} fill="#8B0000" fillOpacity={0.7} name="Workout Intensity"/>
-        <Line type="monotone" dataKey="moodRating" stroke="grey" strokeWidth={3}  dot={<CustomDot />} connectNulls={true} name="Mood"/>
-      </ComposedChart>
+      <div className="graph-and-legend">
+        <div className="graph"> 
+          <ComposedChart width={1000} height={700} data={data}>
+            <CartesianGrid />
+            <XAxis dataKey="date"/>
+            <YAxis domain={[0, 10]}/>  
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="workoutIntensity" barSize={40} fill="#000080" fillOpacity={0.7} name="Workout Intensity"/>
+            <Line type="monotone" dataKey="moodRating" stroke="grey" strokeWidth={3}  dot={<CustomDot />} connectNulls={true} name="Mood"/>
+          </ComposedChart>
+        </div>
+        <div className="legend">
+          <p>Yellow: happy</p>
+          <p>Pink: excited</p>
+          <p>Green: calm</p>
+          <p>Grey: tired</p>
+          <p>Purple: anxious</p>
+          <p>Blue: sad</p>
+          <p>Red: angry</p>
+        </div>
+      </div>
     </div>
   )
 }
