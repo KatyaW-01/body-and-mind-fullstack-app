@@ -118,3 +118,30 @@ body {
   border: 1px solid #000; 
 }
 
+.mood-card.happy {
+  background-color: #FFD70040;
+}
+
+.mood-card.excited {
+  background-color: #FF69B440;
+}
+
+.mood-card.calm {
+  background-color: #32CD3240;
+}
+
+.mood-card.tired {
+  background-color: #A9A9A940;
+}
+
+.mood-card.anxious {
+  background-color: #80008040;
+}
+
+.mood-card.sad {
+  background-color: #1E90FF40;
+}
+
+.mood-card.angry {
+  background-color: #FF450040;
+}

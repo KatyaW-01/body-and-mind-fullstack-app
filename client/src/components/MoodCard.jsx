@@ -19,8 +19,10 @@ function MoodCard({mood, setMoods}) {
     }
   }
 
+  
+
   return (
-    <div className="mood-card">
+    <div className={`mood-card ${mood.mood ? mood.mood.toLowerCase() : ""}`}>
       <h3>{mood.date}</h3>
       <p>Mood: {mood.mood}</p>
       <p>Rating: {mood.rating}/10</p>
