@@ -32,10 +32,6 @@ body {
   text-align: center;
 }
 
-/* .workout-card p {
-  text-align: center;
-} */
-
 .workout-card ul {
   display: flex;
   flex-direction: column;
@@ -50,10 +46,15 @@ body {
   gap: 20px;   
 }
 
-
-.workout-buttons button {
+.workout-buttons button,
+.mood-buttons button {
   border-radius: 5px;
   padding: 5px
+}
+
+.workout-buttons button:hover,
+.mood-buttons button:hover {
+  background: #D8D8D8;
 }
 
 .add-workout-container {
@@ -86,22 +87,35 @@ body {
   text-align: center;
 }
 
-.add-mood-container{
+.add-mood-container,
+.add-workout-container {
   display: flex;
   justify-content: center;
   margin: 20px 0;  
 }
 
-.add-mood-button {
+.add-mood-button,
+.add-workout-button {
   border-radius: 5px;
   padding: 5px
+}
+
+.add-mood-button:hover,
+.add-workout-button:hover {
+  background: #6c63ff40;
+}
+
+.analytics-header {
+  margin-top: 40px;
+  color: #333;
 }
 
 .graph-and-legend {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: 40px
+  gap: 40px;
+  margin-top: 30px
 }
 
 .legend {
@@ -191,10 +205,18 @@ body {
   border-radius: 5px;
 }
 
+.home-workouts-and-moods button:hover {
+  background: #D8D8D8;
+}
+
 .viewData-button {
   display: flex;
   justify-content: center;
   margin: 20px 0;  
+}
+
+.viewData-button button:hover {
+  background: #D8D8D8;
 }
 
 .viewData-button button {
