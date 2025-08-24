@@ -203,7 +203,8 @@ body {
 }
 
 .workout-form-div,
-.add-workout-form-div {
+.add-workout-form-div,
+.add-exercise-form-div {
   justify-content: center;
   justify-items: center; 
   max-width: 600px;
@@ -213,6 +214,12 @@ body {
   border-radius: 12px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.1);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.add-exercise-form-div h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
 }
 
 .workout-form-div h3 {
@@ -227,14 +234,16 @@ body {
 }
 
 .workout-form div,
-.add-workout-form div {
+.add-workout-form div,
+.add-exercise-form div {
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
 }
 
 .workout-form label,
-.add-workout-form label {
+.add-workout-form label,
+.add-exercise-form label {
   margin-bottom: 5px;
   font-weight: 600;
   color: #444;
@@ -277,7 +286,8 @@ body {
 }
 
 .submit-workout-button,
-.submit-new-workout{
+.submit-new-workout,
+.submit-new-exercise {
   padding: 3px;
 }
 
@@ -307,7 +317,6 @@ body {
   margin-bottom: 20px;
   color: #333;
 }
-
 
 .exercise-card {
   background: #fff;
