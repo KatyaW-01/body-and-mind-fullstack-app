@@ -208,8 +208,6 @@ def delete_mood(id):
     status = 404
   return make_response(body,status)
 
-#weather routes
-
 @app.after_request
 def add_headers(response):
     response.headers.add('Access-Control-Allow-Origin', '*')
