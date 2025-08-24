@@ -205,7 +205,8 @@ body {
 .workout-form-div,
 .add-workout-form-div,
 .add-exercise-form-div,
-.edit-mood-form-div {
+.edit-mood-form-div,
+.add-mood-form-div {
   justify-content: center;
   justify-items: center; 
   max-width: 600px;
@@ -265,7 +266,8 @@ body {
 .workout-form div,
 .add-workout-form div,
 .add-exercise-form div,
-.edit-mood-form div {
+.edit-mood-form div,
+.add-mood-form div {
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
@@ -274,7 +276,8 @@ body {
 .workout-form label,
 .add-workout-form label,
 .add-exercise-form label,
-.edit-mood-form label {
+.edit-mood-form label,
+.add-mood-form label {
   margin-bottom: 5px;
   font-weight: 600;
   color: #444;
@@ -302,7 +305,8 @@ body {
 
 .workout-form .notes,
 .add-workout-form .notes,
-.edit-mood-form .notes {
+.edit-mood-form .notes,
+.add-mood-form .notes {
   height: 50px;
 } 
 
@@ -319,7 +323,8 @@ body {
 
 .submit-workout-button,
 .submit-new-workout,
-.submit-new-exercise {
+.submit-new-exercise,
+.submit-new-mood-button {
   padding: 3px;
 }
 
