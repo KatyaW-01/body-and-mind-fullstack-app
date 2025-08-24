@@ -110,7 +110,6 @@ function WorkoutForm() {
       return updated
     })
   }
-  console.log(workout.exercises)
 
   async function handleDelete(index, event) {
     const exercise = editedExercises[index]
@@ -134,95 +133,99 @@ function WorkoutForm() {
   function handleAddExercise() {
     navigate("/workouts/addExercise", {state: {workout}})
   }
-  console.log(exerciseErrors)
+  
   return (
-    <div>
-      <h3>Workout</h3>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="date">Date:</label>
-          <input type="date" id="date" name="date" max={today} value={editedWorkout.date} onChange={handleChange}/>
-          {errors.date && <p className="error">{errors.date[0]}</p>}
-        </div>
-        <div>
-          <label htmlFor="type">Type:</label>
-          <select id="type" name="type" value={editedWorkout.type} onChange={handleChange}>
-            <option value="Running">Running</option>
-            <option value="Cycling">Cycling</option>
-            <option value="Strength Training">Strength Training</option>
-            <option value="HIIT">HIIT</option>
-            <option value="Swimming">Swimming</option>
-            <option value="Walking">Walking</option>
-            <option value="Yoga">Yoga</option>
-            <option value="Hiking">Hiking</option>
-            <option value="Climbing">Climbing</option>
-            <option value="Other">Other</option>
-          </select>
-          {errors.type && <p className="error">{errors.type[0]}</p>}
-        </div>
-        <div>
-          <label htmlFor="duration">Duration:</label>
-          <input type="number" id="duration" name="duration" value={editedWorkout.duration} onChange={handleChange}/>
-          {errors.duration && <p className="error">{errors.duration[0]}</p>}
-        </div>
-        <div>
-          <label htmlFor="intensity">Intensity:</label>
-          <input type="range" min="1" max="10" id="intensity" name="intensity" value={editedWorkout.intensity} onChange={handleChange}/>
-          <p>value: {editedWorkout.intensity}</p>
-          {errors.intensity && <p className="error">{errors.intensity[0]}</p>}
-        </div>
-        <div>
-          <label htmlFor="notes">Notes:</label>
-          <input type="text" id="notes" name="notes" value={editedWorkout.notes} onChange={handleChange}/>
-          {errors.notes && <p className="error">{errors.notes[0]}</p>}
-        </div>
-        <div>
-          <button type="submit" value="Submit">Submit</button>
-        </div>
-      </form>
-      {/* if a workout has exercises, create form for editing/deleting them */}
-      {workout.exercises.length > 0 && (
-      <div>
-        <h3>Exercises</h3>
-        {workout.exercises.map((exercise, index) => (
-          <div key={exercise.id}>
-            <div>
-              <h4>{index + 1}.</h4>
-            </div>
-            <form onSubmit={(event) => handleExerciseSubmit(index, event)}>
-              <div>
-                <label htmlFor="name" >Name:</label>
-                <input type="text" id="name" name="name" value={editedExercises[index].name || ""} onChange={(event) => handleExerciseChange(index,event)} />
-                {exerciseErrors[index]?.name && <p className="error">{exerciseErrors[index].name[0]}</p>}
-              </div>
-              <div>
-                <label htmlFor="sets" >Sets:</label>
-                <input type="number" id="sets" name="sets" value={editedExercises[index].sets || ""} onChange={(event) => handleExerciseChange(index,event)} />
-                {exerciseErrors[index]?.sets && <p className="error">{exerciseErrors[index].sets[0]}</p>}
-              </div>
-              <div>
-                <label htmlFor="reps" >Reps:</label>
-                <input type="number" id="reps" name="reps" value={editedExercises[index].reps || ""} onChange={(event) => handleExerciseChange(index,event)} />
-                {exerciseErrors[index]?.reps && <p className="error">{exerciseErrors[index].reps[0]}</p>}
-              </div>
-              <div>
-                <label htmlFor="weight" >Weight:</label>
-                <input type="number" id="weight" name="weight" value={editedExercises[index].weight || ""} onChange={(event) => handleExerciseChange(index,event)} />
-                {exerciseErrors[index]?.weight && <p className="error">{exerciseErrors[index].weight[0]}</p>}
-              </div>
-              <div>
-                <button type="submit" value="Submit">Submit Edit</button>
-              </div>
-            </form>
-            <button onClick={(event) => handleDelete(index, event)}>Delete Exercise</button>
+    <div >
+      <div className="workout-form-div">
+        <h3>Workout</h3>
+        <form onSubmit={handleSubmit} className="workout-form">
+          <div>
+            <label htmlFor="date">Date:</label>
+            <input type="date" id="date" name="date" max={today} value={editedWorkout.date} onChange={handleChange} className="input"/>
+            {errors.date && <p className="error">{errors.date[0]}</p>}
           </div>
-        ))}
+          <div>
+            <label htmlFor="type">Type:</label>
+            <select id="type" name="type" value={editedWorkout.type} onChange={handleChange} className="input">
+              <option value="Running">Running</option>
+              <option value="Cycling">Cycling</option>
+              <option value="Strength Training">Strength Training</option>
+              <option value="HIIT">HIIT</option>
+              <option value="Swimming">Swimming</option>
+              <option value="Walking">Walking</option>
+              <option value="Yoga">Yoga</option>
+              <option value="Hiking">Hiking</option>
+              <option value="Climbing">Climbing</option>
+              <option value="Other">Other</option>
+            </select>
+            {errors.type && <p className="error">{errors.type[0]}</p>}
+          </div>
+          <div>
+            <label htmlFor="duration">Duration:</label>
+            <input type="number" id="duration" name="duration" value={editedWorkout.duration} onChange={handleChange} className="input"/>
+            {errors.duration && <p className="error">{errors.duration[0]}</p>}
+          </div>
+          <div>
+            <label htmlFor="intensity">Intensity:</label>
+            <input type="range" min="1" max="10" id="intensity" name="intensity" value={editedWorkout.intensity} onChange={handleChange} className="input"/>
+            <p>value: {editedWorkout.intensity}</p>
+            {errors.intensity && <p className="error">{errors.intensity[0]}</p>}
+          </div>
+          <div>
+            <label htmlFor="notes">Notes:</label>
+            <textarea type="text" id="notes" name="notes" maxLength={300} value={editedWorkout.notes} onChange={handleChange} className="notes input" />
+            {errors.notes && <p className="error">{errors.notes[0]}</p>}
+          </div>
+          <div>
+            <button type="submit" value="Submit" className="submit-workout-button">Submit</button>
+          </div>
+        </form>
+        {/* if a workout has exercises, create form for editing/deleting them */}
+        {workout.exercises.length > 0 && (
+        <div className="exercises-form">
+          <h3>Exercises</h3>
+          {workout.exercises.map((exercise, index) => (
+            <div key={exercise.id} className="exercise-card">
+              <div>
+                <h4>{index + 1}.</h4>
+              </div>
+              <form onSubmit={(event) => handleExerciseSubmit(index, event)}>
+                <div className="exercise-form-div">
+                  <label htmlFor="name" >Name:</label>
+                  <input type="text" id="name" name="name" value={editedExercises[index].name || ""} onChange={(event) => handleExerciseChange(index,event)} />
+                  {exerciseErrors[index]?.name && <p className="error">{exerciseErrors[index].name[0]}</p>}
+                </div>
+                <div className="exercise-form-div">
+                  <label htmlFor="sets" >Sets:</label>
+                  <input type="number" id="sets" name="sets" value={editedExercises[index].sets || ""} onChange={(event) => handleExerciseChange(index,event)} />
+                  {exerciseErrors[index]?.sets && <p className="error">{exerciseErrors[index].sets[0]}</p>}
+                </div>
+                <div className="exercise-form-div">
+                  <label htmlFor="reps" >Reps:</label>
+                  <input type="number" id="reps" name="reps" value={editedExercises[index].reps || ""} onChange={(event) => handleExerciseChange(index,event)} />
+                  {exerciseErrors[index]?.reps && <p className="error">{exerciseErrors[index].reps[0]}</p>}
+                </div>
+                <div className="exercise-form-div">
+                  <label htmlFor="weight" >Weight:</label>
+                  <input type="number" id="weight" name="weight" value={editedExercises[index].weight || ""} onChange={(event) => handleExerciseChange(index,event)} />
+                  {exerciseErrors[index]?.weight && <p className="error">{exerciseErrors[index].weight[0]}</p>}
+                </div>
+                <div className="exercise-form-div">
+                  <button type="submit" value="Submit">Submit Edit</button>
+                </div>
+              </form>
+              <div className="exercise-form-div">
+                <button onClick={(event) => handleDelete(index, event)}>Delete Exercise</button>
+              </div>
+            </div>
+          ))}
+        </div>
+        )}
+        <div className="add-exercise-button">
+          <button onClick={handleAddExercise}>Add an exercise</button>
+        </div>
       </div>
-      )}
-      <div>
-        <button onClick={handleAddExercise}>Add an exercise</button>
-      </div>
-      <div>
+      <div className="back-to-workouts-button">
         <button onClick={handleFinish}>Back to Workouts</button>
       </div>
     </div>

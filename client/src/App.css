@@ -201,3 +201,144 @@ body {
   padding: 5px;
   border-radius: 5px;
 }
+
+.workout-form-div {
+  justify-content: center;
+  justify-items: center; 
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.workout-form-div h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.workout-form-div h4 {
+  margin: 10px 0;
+  color: #555;
+}
+
+.workout-form div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.workout-form label {
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #444;
+}
+
+.input {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input:focus{
+  outline: none;
+  border-color: #6c63ff;
+  box-shadow: 0 0 5px rgba(108, 99, 255, 0.3);
+}
+
+.error {
+  color: #ff4d4f;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.workout-form .notes {
+  height: 50px;
+} 
+
+.add-exercise-button {
+  display: flex;
+  flex-direction: column;
+  width: 213.98px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.add-exercise-button button {
+  padding: 4px;
+}
+
+.submit-workout-button{
+  padding: 3px;
+}
+
+.back-to-workouts-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.back-to-workouts-button button {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.back-to-workouts-button button:hover {
+  background: #6c63ff40;
+}
+
+.exercises-form {
+  margin-top: 30px;
+}
+
+.exercises-form h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+
+.exercise-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.exercise-form-div{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.exercise-form-div label {
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #555;
+}
+
+.exercise-form-div input {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.exercise-form-div input:focus {
+  outline: none;
+  border-color: #6c63ff;
+  box-shadow: 0 0 5px rgba(108, 99, 255, 0.3);
+}
+
+
+
+
