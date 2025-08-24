@@ -56,33 +56,37 @@ function AddExerciseForm() {
 
   return (
     <div>
-      <h2>Add an exercise to your {workout.type.toLowerCase()} workout from {workout.date} </h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name" >Name:</label>
-          <input type="text" id="name" name="name" value={newExercise.name} onChange={handleChange} />
-          {errors.name && <p className="error">{errors.name[0]}</p>}
-        </div>
-        <div>
-          <label htmlFor="sets" >Sets (optional):</label>
-          <input type="number" id="sets" name="sets" value={newExercise.sets} onChange={handleChange} />
-          {errors.sets && <p className="error">{errors.sets[0]}</p>}
-        </div>
-        <div>
-          <label htmlFor="reps" >Reps (optional):</label>
-          <input type="number" id="reps" name="reps" value={newExercise.reps} onChange={handleChange} />
-          {errors.reps && <p className="error">{errors.reps[0]}</p>}
-        </div>
-        <div>
-          <label htmlFor="weight" >Weight (optional):</label>
-          <input type="number" id="weight" name="weight" value={newExercise.weight} onChange={handleChange} />
-          {errors.weight && <p className="error">{errors.weight[0]}</p>}
-        </div>
-        <div>
-           <button type="submit" value="Submit">Submit</button>
-        </div>
-      </form>
-      <button onClick={handleFinish}>Back to Workouts</button>
+      <div className="add-exercise-form-div">
+        <h2>Add an exercise to your {workout.type.toLowerCase()} workout from {workout.date} </h2>
+        <form onSubmit={handleSubmit} className="add-exercise-form">
+          <div>
+            <label htmlFor="name" >Name:</label>
+            <input type="text" id="name" name="name" value={newExercise.name} onChange={handleChange} className="input"/>
+            {errors.name && <p className="error">{errors.name[0]}</p>}
+          </div>
+          <div>
+            <label htmlFor="sets" >Sets (optional):</label>
+            <input type="number" id="sets" name="sets" value={newExercise.sets} onChange={handleChange} className="input"/>
+            {errors.sets && <p className="error">{errors.sets[0]}</p>}
+          </div>
+          <div>
+            <label htmlFor="reps" >Reps (optional):</label>
+            <input type="number" id="reps" name="reps" value={newExercise.reps} onChange={handleChange} className="input"/>
+            {errors.reps && <p className="error">{errors.reps[0]}</p>}
+          </div>
+          <div>
+            <label htmlFor="weight" >Weight (optional):</label>
+            <input type="number" id="weight" name="weight" value={newExercise.weight} onChange={handleChange} className="input"/>
+            {errors.weight && <p className="error">{errors.weight[0]}</p>}
+          </div>
+          <div className="submit-new-exercise">
+            <button type="submit" value="Submit">Submit</button>
+          </div>
+        </form>
+      </div>
+      <div className="back-to-workouts-button">
+        <button onClick={handleFinish}>Back to Workouts</button>
+      </div>
     </div>
   )
 }

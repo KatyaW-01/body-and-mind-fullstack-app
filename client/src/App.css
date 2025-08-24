@@ -1,1 +1,424 @@
+body {
+  background-color: #f5f5f5;
+}
+
+.workout-headers,
+.mood-headers,
+.analytics-header {
+  text-align: center;
+}
+
+.workout-div {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 20px;
+  box-sizing: border-box;
+  justify-content: center;
+  justify-items: center; 
+}
+
+.workout-card {
+  width: 400px;
+  padding: 20px;
+  margin: 20px;
+  border: 2px solid grey;
+  background: #f9fafb;
+  border-radius: 5px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+.workout-card h3,
+.workout-card h4,
+.workout-card p {
+  text-align: center;
+}
+
+.workout-card ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.workout-buttons,
+.mood-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;   
+}
+
+.workout-buttons button,
+.mood-buttons button {
+  border-radius: 5px;
+  padding: 5px
+}
+
+.workout-buttons button:hover,
+.mood-buttons button:hover {
+  background: #D8D8D8;
+}
+
+.add-workout-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;        
+}
+
+.add-workout-button {
+  border-radius: 5px;
+  padding: 5px
+}
+
+.mood-div {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 20px;
+  box-sizing: border-box;
+  justify-content: center;
+  justify-items: center; 
+}
+
+.mood-card {
+  width: 400px;
+  padding: 20px;
+  margin: 20px;
+  border: 2px solid grey;
+  background: #f9fafb;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+.add-mood-container,
+.add-workout-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;  
+}
+
+.add-mood-button,
+.add-workout-button {
+  border-radius: 5px;
+  padding: 5px
+}
+
+.add-mood-button:hover,
+.add-workout-button:hover {
+  background: #6c63ff40;
+}
+
+.analytics-header {
+  margin-top: 40px;
+  color: #333;
+}
+
+.graph-and-legend {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 30px
+}
+
+.legend {
+  border: 2px solid grey;  
+  padding: 10px;
+  align-self: center;   
+}
+
+.color-box {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-right: 8px;
+  border: 1px solid #000; 
+}
+
+.mood-card.happy {
+  background-color: #FFD70040;
+}
+
+.mood-card.excited {
+  background-color: #FF69B440;
+}
+
+.mood-card.calm {
+  background-color: #32CD3240;
+}
+
+.mood-card.tired {
+  background-color: #A9A9A940;
+}
+
+.mood-card.anxious {
+  background-color: #80008040;
+}
+
+.mood-card.sad {
+  background-color: #1E90FF40;
+}
+
+.mood-card.angry {
+  background-color: #FF450040;
+}
+
+.home h1,
+.home p {
+  text-align: center;
+}
+
+.home p {
+  font-size: 25px;
+}
+
+.home-workouts-and-moods {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  justify-items: center; 
+  gap: 40px
+}
+
+.home-workouts {
+  text-align: center;
+  border: 3px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  width: 200px;
+  height: 175px
+}
+
+.home-moods {
+  text-align: center;
+  border: 3px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  width: 200px;
+  height: 175px
+}
+
+.home-workouts h3,
+.home-moods h3 {
+  font-size: 30px;
+}
+
+.home-workouts-and-moods button {
+  font-size: 20px;
+  border-radius: 5px;
+}
+
+.home-workouts-and-moods button:hover {
+  background: #D8D8D8;
+}
+
+.viewData-button {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;  
+}
+
+.viewData-button button:hover {
+  background: #D8D8D8;
+}
+
+.viewData-button button {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.workout-form-div,
+.add-workout-form-div,
+.add-exercise-form-div,
+.edit-mood-form-div,
+.add-mood-form-div {
+  justify-content: center;
+  justify-items: center; 
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.edit-mood-form-div.happy {
+  background-color: #FFD70040;
+}
+
+.edit-mood-form-div.excited {
+  background-color: #FF69B440;
+}
+
+.edit-mood-form-div.calm {
+  background-color: #32CD3240;
+}
+
+.edit-mood-form-div.tired {
+  background-color: #A9A9A940;
+}
+
+.edit-mood-form-div.anxious {
+  background-color: #80008040;
+}
+
+.edit-mood-form-div.sad {
+  background-color: #1E90FF40;
+}
+
+.edit-mood-form-div.angry {
+  background-color: #FF450040;
+}
+
+
+.add-exercise-form-div h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.workout-form-div h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.workout-form-div h4 {
+  margin: 10px 0;
+  color: #555;
+}
+
+.workout-form div,
+.add-workout-form div,
+.add-exercise-form div,
+.edit-mood-form div,
+.add-mood-form div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.workout-form label,
+.add-workout-form label,
+.add-exercise-form label,
+.edit-mood-form label,
+.add-mood-form label {
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #444;
+}
+
+.input {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input:focus{
+  outline: none;
+  border-color: #6c63ff;
+  box-shadow: 0 0 5px rgba(108, 99, 255, 0.3);
+}
+
+.error {
+  color: #ff4d4f;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.workout-form .notes,
+.add-workout-form .notes,
+.edit-mood-form .notes,
+.add-mood-form .notes {
+  height: 50px;
+} 
+
+.add-exercise-button {
+  display: flex;
+  flex-direction: column;
+  width: 213.98px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.add-exercise-button button {
+  padding: 4px;
+}
+
+.submit-workout-button,
+.submit-new-workout,
+.submit-new-exercise,
+.submit-new-mood-button {
+  padding: 3px;
+}
+
+.back-to-workouts-button,
+.back-to-moods-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.back-to-workouts-button button,
+.back-to-moods-button button {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.back-to-workouts-button button:hover,
+.back-to-moods-button button:hover {
+  background: #6c63ff40;
+}
+
+.exercises-form {
+  margin-top: 30px;
+}
+
+.exercises-form h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.exercise-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.exercise-form-div{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.exercise-form-div label {
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #555;
+}
+
+.exercise-form-div input {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.exercise-form-div input:focus {
+  outline: none;
+  border-color: #6c63ff;
+  box-shadow: 0 0 5px rgba(108, 99, 255, 0.3);
+}
+
+
+
+
+
 

@@ -61,42 +61,44 @@ function MoodForm() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}> 
-        <div>
-          <label htmlFor="date">Date:</label>
-          <input type="date" id="date" name="date" max={today} value={editedMood.date} onChange={handleChange} />
-          {errors.date && <p className="error">{errors.date[0]}</p>}
-        </div>
-        <div>
-          <label htmlFor="mood">Mood:</label>
-          <select id="mood" name="mood" value={editedMood.mood} onChange={handleChange} >
-            <option value="happy">Happy</option>
-            <option value="sad">Sad</option>
-            <option value="angry">Angry</option>
-            <option value="anxious">Anxious</option>
-            <option value="calm">Calm</option>
-            <option value="excited">Excited</option>
-            <option value="tired">Tired</option>
-          </select>
-          {errors.mood && <p className="error">{errors.mood[0]}</p>}
-        </div>
-        <div>
-          <label htmlFor="rating">Rating:</label>
-          <input type="range"  min="1" max="10" id="rating" name="rating" value={editedMood.rating} onChange={handleChange}/>
-          <p>value: {editedMood.rating}</p>
-          {errors.rating && <p className="error">{errors.rating[0]}</p>}
-        </div>
-        <div>
-          <label htmlFor="notes">Notes:</label>
-          <input type="text" id="notes" name="notes" value={editedMood.notes} onChange={handleChange} />
-          {errors.notes && <p className="error">{errors.notes[0]}</p>}
-        </div>
-        <div>
-          <button type="submit" value="Submit">Submit</button>
-        </div>
-      </form>
-      <div>
-        <button onClick={handleFinish}>Finish</button>
+      <div className={`edit-mood-form-div ${mood.mood ? mood.mood.toLowerCase() : ""}`}>
+        <form onSubmit={handleSubmit} className="edit-mood-form"> 
+          <div>
+            <label htmlFor="date">Date:</label>
+            <input type="date" id="date" name="date" max={today} value={editedMood.date} onChange={handleChange} className="input"/>
+            {errors.date && <p className="error">{errors.date[0]}</p>}
+          </div>
+          <div>
+            <label htmlFor="mood">Mood:</label>
+            <select id="mood" name="mood" value={editedMood.mood} onChange={handleChange} className="input">
+              <option value="happy">Happy</option>
+              <option value="sad">Sad</option>
+              <option value="angry">Angry</option>
+              <option value="anxious">Anxious</option>
+              <option value="calm">Calm</option>
+              <option value="excited">Excited</option>
+              <option value="tired">Tired</option>
+            </select>
+            {errors.mood && <p className="error">{errors.mood[0]}</p>}
+          </div>
+          <div>
+            <label htmlFor="rating">Rating:</label>
+            <input type="range"  min="1" max="10" id="rating" name="rating" value={editedMood.rating} onChange={handleChange} />
+            <p>value: {editedMood.rating}</p>
+            {errors.rating && <p className="error">{errors.rating[0]}</p>}
+          </div>
+          <div>
+            <label htmlFor="notes">Notes:</label>
+            <textarea type="text" id="notes" name="notes" value={editedMood.notes} onChange={handleChange} className="input notes"/>
+            {errors.notes && <p className="error">{errors.notes[0]}</p>}
+          </div>
+          <div>
+            <button type="submit" value="Submit">Submit</button>
+          </div>
+        </form>
+      </div>
+      <div className="back-to-moods-button">
+        <button onClick={handleFinish}>Back to Moods</button>
       </div>
     </div>
   )

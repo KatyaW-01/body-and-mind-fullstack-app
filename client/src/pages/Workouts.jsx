@@ -21,7 +21,7 @@ function Workouts() {
   return (
     <div>
       <NavBar />
-      <h1>
+      <h1 className="workout-headers">
         {location.pathname === "/workouts"
           ? "Workouts"
           : location.pathname === "/workouts/workoutForm"
@@ -32,7 +32,9 @@ function Workouts() {
         }
       </h1>
       {location.pathname === "/workouts" ?
-        <button onClick={handleLog}>Log a Workout</button> : ""
+        <div className="add-workout-container">
+          <button onClick={handleLog} className="add-workout-button">Log a Workout</button> 
+        </div> : ""
       }
       <Outlet context = {{workouts, setWorkouts}} />
     </div>

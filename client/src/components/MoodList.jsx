@@ -10,7 +10,7 @@ function MoodList() {
   }
 
   return (
-    <div>
+    <div className="mood-div">
       {
         moods.map((mood) => (
           <div key={mood.id}> 
