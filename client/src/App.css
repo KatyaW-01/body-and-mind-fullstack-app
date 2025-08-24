@@ -202,7 +202,8 @@ body {
   border-radius: 5px;
 }
 
-.workout-form-div {
+.workout-form-div,
+.add-workout-form-div {
   justify-content: center;
   justify-items: center; 
   max-width: 600px;
@@ -225,13 +226,15 @@ body {
   color: #555;
 }
 
-.workout-form div {
+.workout-form div,
+.add-workout-form div {
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
 }
 
-.workout-form label {
+.workout-form label,
+.add-workout-form label {
   margin-bottom: 5px;
   font-weight: 600;
   color: #444;
@@ -257,7 +260,8 @@ body {
   margin-top: 5px;
 }
 
-.workout-form .notes {
+.workout-form .notes,
+.add-workout-form .notes {
   height: 50px;
 } 
 
@@ -272,7 +276,8 @@ body {
   padding: 4px;
 }
 
-.submit-workout-button{
+.submit-workout-button,
+.submit-new-workout{
   padding: 3px;
 }
 
@@ -338,6 +343,8 @@ body {
   border-color: #6c63ff;
   box-shadow: 0 0 5px rgba(108, 99, 255, 0.3);
 }
+
+
 
 
 
