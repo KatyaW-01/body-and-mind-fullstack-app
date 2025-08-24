@@ -204,7 +204,8 @@ body {
 
 .workout-form-div,
 .add-workout-form-div,
-.add-exercise-form-div {
+.add-exercise-form-div,
+.edit-mood-form-div {
   justify-content: center;
   justify-items: center; 
   max-width: 600px;
@@ -215,6 +216,34 @@ body {
   box-shadow: 0 6px 18px rgba(0,0,0,0.1);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+.edit-mood-form-div.happy {
+  background-color: #FFD70040;
+}
+
+.edit-mood-form-div.excited {
+  background-color: #FF69B440;
+}
+
+.edit-mood-form-div.calm {
+  background-color: #32CD3240;
+}
+
+.edit-mood-form-div.tired {
+  background-color: #A9A9A940;
+}
+
+.edit-mood-form-div.anxious {
+  background-color: #80008040;
+}
+
+.edit-mood-form-div.sad {
+  background-color: #1E90FF40;
+}
+
+.edit-mood-form-div.angry {
+  background-color: #FF450040;
+}
+
 
 .add-exercise-form-div h2 {
   text-align: center;
@@ -235,7 +264,8 @@ body {
 
 .workout-form div,
 .add-workout-form div,
-.add-exercise-form div {
+.add-exercise-form div,
+.edit-mood-form div {
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
@@ -243,7 +273,8 @@ body {
 
 .workout-form label,
 .add-workout-form label,
-.add-exercise-form label {
+.add-exercise-form label,
+.edit-mood-form label {
   margin-bottom: 5px;
   font-weight: 600;
   color: #444;
@@ -270,7 +301,8 @@ body {
 }
 
 .workout-form .notes,
-.add-workout-form .notes {
+.add-workout-form .notes,
+.edit-mood-form .notes {
   height: 50px;
 } 
 
@@ -291,7 +323,8 @@ body {
   padding: 3px;
 }
 
-.back-to-workouts-button {
+.back-to-workouts-button,
+.back-to-moods-button {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -299,12 +332,14 @@ body {
   margin-bottom: 50px;
 }
 
-.back-to-workouts-button button {
+.back-to-workouts-button button,
+.back-to-moods-button button {
   padding: 5px;
   border-radius: 5px;
 }
 
-.back-to-workouts-button button:hover {
+.back-to-workouts-button button:hover,
+.back-to-moods-button button:hover {
   background: #6c63ff40;
 }
 

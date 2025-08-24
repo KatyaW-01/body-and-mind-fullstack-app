@@ -92,7 +92,7 @@ function AddWorkoutForm() {
 
           <div>
           <label htmlFor="intensity">Intensity:</label>
-          <input type="range" min="1" max="10" id="intensity" name="intensity" value={newWorkout.intensity} onChange={handleChange} className="notes input"/>
+          <input type="range" min="1" max="10" id="intensity" name="intensity" value={newWorkout.intensity} onChange={handleChange} />
           <p>value: {newWorkout.intensity}</p>
           {errors.intensity && <p className="error">{errors.intensity[0]}</p>}
           </div>
